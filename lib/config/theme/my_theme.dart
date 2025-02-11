@@ -5,6 +5,7 @@ import 'package:online_exam/core/utils/colors_manager.dart';
 class MyTheme{
   static  ThemeData lightTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(seedColor: ColorsManager.primaryColor),
+    scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
       color: Colors.transparent,
       elevation: 0.0,
@@ -20,6 +21,7 @@ class MyTheme{
       ),
       titleSmall: TextStyle(
         fontWeight: FontWeight.w400,
+        fontSize: 12.sp,
         color: ColorsManager.textTheme
       ),
     ),
