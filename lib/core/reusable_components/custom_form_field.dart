@@ -44,6 +44,7 @@ class CustomFormField extends StatelessWidget {
         hintText: hintText,
         labelText: title,
         floatingLabelAlignment: FloatingLabelAlignment.start,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         labelStyle:Theme.of(context).textTheme.titleSmall?.copyWith(
             color: Colors.black.withOpacity(0.7)
         ) ,

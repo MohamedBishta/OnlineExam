@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/core/constants.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
+import 'package:online_exam/presentation/forget/forget_password.dart';
 
 import '../../core/reusable_components/custom_button.dart';
 import '../../core/reusable_components/custom_form_field.dart';
@@ -55,7 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       } };},),
             SizedBox(height: 24.h,),
             CustomFormField(title: StringsManager.passwordTitle,
-              hintText: StringsManager.passwordHint, controller: passController, validation: (email ) {
+              hintText: StringsManager.passwordHint, controller: passController,
+              validation: (email ) {
                     (pass) {
                       if (pass == null || pass.trim().isEmpty || pass < 8) {
                         return StringsManager.thisPassIsNotValid;
@@ -69,7 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             SizedBox(height: 48.h,),
-            CustomButton(title: StringsManager.login, onPressed: () {  },),
+            CustomButton(title: StringsManager.login, onPressed: () {
+              Navigator.push(context,MaterialPageRoute(builder: (context) => ForgetPassword(),));
+
+            },),
             SizedBox(height: 16.h,),
             Text(StringsManager.dontHaveAccount)
           ],
