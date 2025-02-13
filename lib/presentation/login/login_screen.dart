@@ -14,8 +14,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController emailController ;
-  late TextEditingController passController ;
+  late TextEditingController emailController;
+  late TextEditingController passController;
   @override
   void initState() {
     // TODO: implement initState
@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     emailController = TextEditingController();
     passController = TextEditingController();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -30,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     emailController.dispose();
     passController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,35 +44,70 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.arrow_back_ios,size: 20.sp,),
-                Text(StringsManager.login,style: Theme.of(context).textTheme.headlineMedium,)
+                Icon(
+                  Icons.arrow_back_ios,
+                  size: 20.sp,
+                ),
+                Text(
+                  StringsManager.login,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                )
               ],
             ),
-            SizedBox(height: 24.h,),
-            CustomFormField(title: StringsManager.emailTitle,
-              hintText: StringsManager.emailHint, controller: emailController, validation: (email ) {
-                    (email) {
-                      if (email == null || email.trim().isEmpty || email != Constants.emailRegex.hasMatch(email)) {
-                        return StringsManager.thisEmailIsNotValid;
-                      } };},),
-            SizedBox(height: 24.h,),
-            CustomFormField(title: StringsManager.passwordTitle,
-              hintText: StringsManager.passwordHint, controller: passController, validation: (email ) {
-                    (pass) {
-                      if (pass == null || pass.trim().isEmpty || pass < 8) {
-                        return StringsManager.thisPassIsNotValid;
-                      } };},
-            icon: Icons.visibility_off,),
+            SizedBox(
+              height: 24.h,
+            ),
+            CustomFormField(
+              title: StringsManager.emailTitle,
+              hintText: StringsManager.emailHint,
+              controller: emailController,
+              validation: (email) {
+                (email) {
+                  if (email == null ||
+                      email.trim().isEmpty ||
+                      email != Constants.emailRegex.hasMatch(email)) {
+                    return StringsManager.thisEmailIsNotValid;
+                  }
+                };
+              },
+            ),
+            SizedBox(
+              height: 24.h,
+            ),
+            CustomFormField(
+              title: StringsManager.passwordTitle,
+              hintText: StringsManager.passwordHint,
+              controller: passController,
+              validation: (email) {
+                (pass) {
+                  if (pass == null || pass.trim().isEmpty || pass < 8) {
+                    return StringsManager.thisPassIsNotValid;
+                  }
+                };
+              },
+              suffixIcon: Icon(Icons.visibility_off),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Checkbox(value: true, onChanged: (value) { },semanticLabel: StringsManager.rememberMe,),
+                Checkbox(
+                  value: true,
+                  onChanged: (value) {},
+                  semanticLabel: StringsManager.rememberMe,
+                ),
                 Text(StringsManager.forgotPass)
               ],
             ),
-            SizedBox(height: 48.h,),
-            CustomButton(title: StringsManager.login, onPressed: () {  },),
-            SizedBox(height: 16.h,),
+            SizedBox(
+              height: 48.h,
+            ),
+            CustomButton(
+              title: StringsManager.login,
+              onPressed: () {},
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
             Text(StringsManager.dontHaveAccount)
           ],
         ),
