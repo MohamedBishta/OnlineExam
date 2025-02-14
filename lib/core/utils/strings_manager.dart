@@ -20,8 +20,11 @@ class StringsManager {
   static const String signUp = 'Signup';
   static const String login = 'Login';
   static const String alreadyHaveAccount = 'Already have an account? Login';
+  static const String thisUserIsNotValid = 'This user name is not valid';
   static const String thisEmailIsNotValid = 'This Email is not valid';
   static const String thisPassIsNotValid = 'This Password is not valid';
+  static const String confPassNotMatch = 'Password not matched';
+  static const String thisPassIsWeak = 'Password must be at least 6 characters long';
   static const String forgotPass = 'Forget password?';
   static const String rememberMe = 'Remember me';
   static const String dontHaveAccount = "Don't have an account? Sign up ";

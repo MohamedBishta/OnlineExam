@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/config/theme/my_theme.dart';
 import 'package:online_exam/core/utils/routes_manager.dart';
-import 'package:online_exam/presentation/home/home_screen.dart';
-import 'package:online_exam/presentation/home/tabs/profile/edite_profile_tap.dart';
-import 'package:online_exam/presentation/home/tabs/profile/reset_password_view.dart';
 import 'package:online_exam/presentation/login/login_screen.dart';
 import 'package:online_exam/presentation/register/register_screen.dart';
 
@@ -19,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: Size(375,812),
       minTextAdapt: true,
       builder: (context, child) => MaterialApp(
         title: 'Flutter Demo',
@@ -27,11 +24,8 @@ class MyApp extends StatelessWidget {
         theme: MyTheme.lightTheme,
         initialRoute: RoutesManager.homeRoteName,
         routes: {
-          RoutesManager.loginRouteName: (_) => LoginScreen(),
-          RoutesManager.registerRoteName: (_) => RegisterScreen(),
-          RoutesManager.editeProfileRoteName: (_) => EditeProfileTab(),
-          RoutesManager.resetPasswordRoteName: (_) => ResetPasswordView(),
-          RoutesManager.homeRoteName: (_) => HomeScreen(),
+          RoutesManager.loginRouteName : (_)=> LoginScreen(),
+          RoutesManager.registerRoteName : (_)=> RegisterScreen(),
         },
       ),
     );

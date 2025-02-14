@@ -28,12 +28,10 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      enabled: enable ?? true,
       controller: controller,
       style: Theme.of(context).textTheme.titleSmall,
       maxLines: maxLine,
       obscureText: obscure,
-      obscuringCharacter: '*',
       keyboardType: keyboardType,
       validator: validation,
       decoration: InputDecoration(
@@ -41,39 +39,28 @@ class CustomFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(4.r),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
+            borderRadius: BorderRadius.circular(4.r)
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
+            borderRadius: BorderRadius.circular(4.r)
         ),
+        enabled: true,
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-          borderRadius: BorderRadius.circular(4.r),
+            borderRadius: BorderRadius.circular(4.r)
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-          borderRadius: BorderRadius.circular(4.r),
+            borderRadius: BorderRadius.circular(4.r)
         ),
         hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontSize: 14.sp,
-            ),
+            fontSize: 14.sp,
+        ),
         hintText: hintText,
         labelText: title,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelStyle: WidgetStateTextStyle.resolveWith((states) {
-          if (states.contains(WidgetState.error)) {
-            return TextStyle(color: Colors.red); // Red label in error state
-          }
-          return Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: Colors.black.withOpacity(0.7), // Default label color
-                  ) ??
-              TextStyle();
-        }),
-        suffixIcon: suffixIcon,
+        floatingLabelAlignment: FloatingLabelAlignment.start,
+        labelStyle:Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: Colors.black.withOpacity(0.7)
+        ) ,
+        suffixIcon: Icon(icon),
         fillColor: Colors.white,
         filled: true,
       ),
