@@ -16,11 +16,17 @@ class StringsManager{
   static const String signUp = 'Signup';
   static const String login = 'Login';
   static const String alreadyHaveAccount = 'Already have an account? Login';
+  static const String thisUserIsNotValid = 'This user name is not valid';
   static const String thisEmailIsNotValid = 'This Email is not valid';
   static const String thisPassIsNotValid = 'This Password is not valid';
+  static const String confPassNotMatch = 'Password not matched';
+  static const String thisPassIsWeak =
+      'Password must be at least 6 characters long';
   static const String forgotPass = 'Forget password?';
   static const String rememberMe = 'Remember me';
   static const String dontHaveAccount = "Don't have an account? Sign up ";
+  static const String token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGFjMDJkODZhMDI0ZjA2ZWEyMDdjNCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3MTQ2NDEzfQ.ju8fNT_6jQvYo_mxJpWMep25hrSqgABFeaqdfnQi4T8';
   static const String forgetPasswordTitle='Forget Password';
   static const String forgetPasswordText='Please enter your email associated to\n your account';
   static const String continueButton='Continue';

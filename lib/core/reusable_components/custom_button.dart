@@ -9,6 +9,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+          padding: REdgeInsets.all(14),
           backgroundColor: Theme.of(context).colorScheme.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100.r)
