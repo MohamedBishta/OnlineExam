@@ -1,4 +1,4 @@
-class StringsManager{
+class StringsManager {
   static const String userNameTitle = 'User name';
   static const String userNameHint = 'Enter you user name';
   static const String firstNameTitle = 'First name';
@@ -34,7 +34,7 @@ class StringsManager{
   static const String update = 'Update';
   static const String profile = 'Profile';
   static const String editeProfile = 'Edite Profile';
-
+  static const String user = 'user';
   static const String change = 'change';
   static const String resetPassword = 'Reset password';
 

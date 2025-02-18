@@ -19,7 +19,10 @@ import '../../../data/dataSources/remoteDataSource/profile_remote_dto_impl.dart'
     as _i56;
 import '../../../data/repo/profile_repo_impl.dart' as _i114;
 import '../../../domain/repo/profile_repo.dart' as _i725;
+import '../../../domain/useCases/edite_profile_usecase.dart' as _i236;
 import '../../../domain/useCases/get_profile_usecase.dart' as _i28;
+import '../../../presentation/home/tabs/profile/cubit/profile_cubit.dart'
+    as _i769;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -37,8 +40,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i56.ProfileRemoteDtoImpl(gh<_i901.ApiManager>()));
     gh.factory<_i725.ProfileRepo>(
         () => _i114.ProfileRepoImpl(gh<_i858.ProfileRemoteDto>()));
+    gh.factory<_i236.EditeProfileUsecase>(
+        () => _i236.EditeProfileUsecase(gh<_i725.ProfileRepo>()));
     gh.factory<_i28.GetProfileUsecase>(
         () => _i28.GetProfileUsecase(gh<_i725.ProfileRepo>()));
+    gh.factory<_i769.ProfileCubit>(() => _i769.ProfileCubit(
+          gh<_i28.GetProfileUsecase>(),
+          gh<_i236.EditeProfileUsecase>(),
+        ));
     return this;
   }
 }

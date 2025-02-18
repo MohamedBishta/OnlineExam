@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_exam/core/reusable_components/custom_button.dart';
 import 'package:online_exam/core/reusable_components/custom_form_field.dart';
+import 'package:online_exam/core/utils/shared_prefrence_manager.dart';
+import 'package:online_exam/core/utils/snackbar_utils.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/core/utils/validators.dart';
+import 'package:online_exam/data/models/edite_profile_input_model.dart';
+import 'package:online_exam/domain/entity/get_profile_entity.dart';
+import 'package:online_exam/presentation/home/tabs/profile/cubit/profile_cubit.dart';
 
 class EditeProfileTab extends StatefulWidget {
   const EditeProfileTab({super.key});
@@ -14,125 +20,133 @@ class EditeProfileTab extends StatefulWidget {
 }
 
 class _EditeProfileTabState extends State<EditeProfileTab> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  @override
-  void dispose() {
-    // Dispose all controllers
-    _usernameController.dispose();
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _phoneController.dispose();
-    super.dispose();
-  }
-
+  // var viewModel = getIt.get<ProfileCubit>();
+  UserEntity profileData =
+      SharedPreferencesManager.getUser(StringsManager.user)!;
   @override
   Widget build(BuildContext context) {
+    var viewModel = ModalRoute.of(context)!.settings.arguments as ProfileCubit;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Text(
-                    StringsManager.editeProfile,
-                    style: GoogleFonts.inter(
-                        textStyle: Theme.of(context).textTheme.headlineMedium),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        AssetImage('assets/images/profile_test.jpg'),
-                    radius: 40.r,
-                  ),
-                ],
-              ),
-              CustomFormField(
-                title: StringsManager.userNameTitle,
-                hintText: StringsManager.userNameHint,
-                controller: _usernameController,
-                validation: ValidatorsManager.validateUsername,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomFormField(
-                      title: StringsManager.firstNameTitle,
-                      hintText: StringsManager.firstNameHint,
-                      controller: _firstNameController,
-                      validation: ValidatorsManager.validateFirstName,
+      body: BlocListener<ProfileCubit, ProfileState>(
+        bloc: viewModel,
+        listener: (context, state) {
+          if (state is ProfileSuccess) {
+            SharedPreferencesManager.updateUser(
+                key: StringsManager.user, user: profileData);
+            print(SharedPreferencesManager.getUser(StringsManager.user)!
+                .firstName);
+            SnackBarUtils.showSnackBar(
+                context: context, text: 'Profile Updated Succssesfuly');
+            Navigator.pop(context);
+            // Navigator.pushReplacementNamed(context, RoutesManager.homeRoteName);
+          } else if (state is ProfileErr) {
+            SnackBarUtils.showSnackBar(context: context, text: state.errMsg);
+          }
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                  ),
-                  SizedBox(
-                    width: 17.w,
-                  ),
-                  Expanded(
-                    child: CustomFormField(
-                      title: StringsManager.lastNameTitle,
-                      hintText: StringsManager.lastNameHint,
-                      controller: _lastNameController,
-                      validation: ValidatorsManager.validateLastName,
+                    Text(
+                      StringsManager.editeProfile,
+                      style: GoogleFonts.inter(
+                          textStyle:
+                              Theme.of(context).textTheme.headlineMedium),
                     ),
-                  ),
-                ],
-              ),
-              CustomFormField(
-                title: StringsManager.emailTitle,
-                hintText: StringsManager.emailHint,
-                controller: _emailController,
-                validation: ValidatorsManager.validateEmail,
-              ),
-              CustomFormField(
-                title: StringsManager.passwordTitle,
-                hintText: StringsManager.passwordHint,
-                controller: _passwordController,
-                validation: ValidatorsManager.validatePassword,
-              ),
-              CustomFormField(
-                title: StringsManager.phoneTitle,
-                hintText: StringsManager.phoneHint,
-                controller: _phoneController,
-                validation: ValidatorsManager.validatePhone,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      child: CustomButton(
-                          title: StringsManager.update,
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              print('Form submitted successfully');
-                            }
-                          })),
-                ],
-              ),
-              SizedBox(
-                height: 70.h,
-              )
-            ],
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/profile_test.jpg'),
+                      radius: 40.r,
+                    ),
+                  ],
+                ),
+                CustomFormField(
+                  title: StringsManager.userNameTitle,
+                  hintText: StringsManager.userNameHint,
+                  controller: viewModel.usernameController,
+                  validation: ValidatorsManager.validateUsername,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomFormField(
+                        title: StringsManager.firstNameTitle,
+                        hintText: StringsManager.firstNameHint,
+                        controller: viewModel.firstNameController,
+                        validation: ValidatorsManager.validateFirstName,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 17.w,
+                    ),
+                    Expanded(
+                      child: CustomFormField(
+                        title: StringsManager.lastNameTitle,
+                        hintText: StringsManager.lastNameHint,
+                        controller: viewModel.lastNameController,
+                        validation: ValidatorsManager.validateLastName,
+                      ),
+                    ),
+                  ],
+                ),
+                CustomFormField(
+                  title: StringsManager.emailTitle,
+                  hintText: StringsManager.emailHint,
+                  controller: viewModel.emailController,
+                  validation: ValidatorsManager.validateEmail,
+                ),
+                CustomFormField(
+                  title: StringsManager.phoneTitle,
+                  hintText: StringsManager.phoneHint,
+                  controller: viewModel.phoneController,
+                  validation: ValidatorsManager.validatePhone,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: CustomButton(
+                            title: StringsManager.update,
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                profileData = EditeProfileInputModel(
+                                  firstName: viewModel.firstNameController.text,
+                                  email: viewModel.emailController.text,
+                                  lastName: viewModel.lastNameController.text,
+                                  phone: viewModel.phoneController.text,
+                                  username: viewModel.usernameController.text,
+                                );
+                                viewModel.editeProfileData(
+                                    profileData as EditeProfileInputModel);
+                              }
+
+                              // Navigator.pop(context);
+                            })),
+                  ],
+                ),
+                SizedBox(
+                  height: 70.h,
+                )
+              ],
+            ),
           ),
         ),
       ),

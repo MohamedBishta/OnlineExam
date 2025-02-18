@@ -48,7 +48,7 @@ class ValidatorsManager{
     if (value == null || value.isEmpty) {
       return 'Phone number is required';
     }
-    if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+    if (!RegExp(r'^[0-9]{11}$').hasMatch(value)) {
       return 'Enter a valid 10-digit phone number';
     }
     return null;

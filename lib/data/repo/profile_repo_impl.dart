@@ -1,8 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/core/utils/result.dart';
+import 'package:online_exam/core/utils/shared_prefrence_manager.dart';
+import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/data/dataSources/remoteDataSource/profile_remote_dto.dart';
-import 'package:online_exam/data/models/get_profile_dto.dart';
+import 'package:online_exam/data/models/edite_profile_input_model.dart';
+import 'package:online_exam/data/models/edite_profile_response_model.dart';
 import 'package:online_exam/domain/entity/get_profile_entity.dart';
 import 'package:online_exam/domain/repo/profile_repo.dart';
 
@@ -18,11 +20,30 @@ class ProfileRepoImpl implements ProfileRepo {
     switch (response) {
       case Success():
         {
+          SharedPreferencesManager.saveUser(
+              user: response.data!.user!, key: StringsManager.user);
           return Success<GetProfileEntity>(response.data);
         }
       case Err():
         {
-          return Err(ex: response.ex);
+          return Err<GetProfileEntity>(ex: response.ex);
+        }
+    }
+  }
+
+  @override
+  Future<Result<EditeProfileResponseModel>> editeProfile(
+      EditeProfileInputModel editeProfileInputModel) async {
+    var response = await _profileRemoteDto.editeProfile(editeProfileInputModel);
+
+    switch (response) {
+      case Success():
+        {
+          return Success<EditeProfileResponseModel>(response.data);
+        }
+      case Err():
+        {
+          return Err<EditeProfileResponseModel>(ex: response.ex);
         }
     }
   }

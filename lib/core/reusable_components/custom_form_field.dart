@@ -11,8 +11,10 @@ class CustomFormField extends StatelessWidget {
     this.keyboardType,
     this.suffixIcon,
     required this.controller,
-     this.validation,
+    this.validation,
     this.enable,
+    this.icon,
+    this.onIconTap,
   });
 
   final TextEditingController controller;
@@ -25,12 +27,16 @@ class CustomFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool? enable;
 
+  final IconData? icon;
+  final void Function()? onIconTap;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+    
+      enabled: enable ?? true,
       controller: controller,
-      style: Theme.of(context).textTheme.titleSmall,
-      maxLines: maxLine,
+      style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 16),
+      maxLines: maxLine ?? 1,
       obscureText: obscure,
       keyboardType: keyboardType,
       validator: validation,
@@ -38,29 +44,31 @@ class CustomFormField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.r),
         ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.r)
-        ),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.r)
-        ),
+        focusedBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
+        enabledBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
         enabled: true,
-        errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.r)
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.r)
-        ),
+        errorBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
+        focusedErrorBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
         hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-            fontSize: 14.sp,
-        ),
+              fontSize: 14.sp,
+            ),
         hintText: hintText,
         labelText: title,
-        floatingLabelAlignment: FloatingLabelAlignment.start,
-        labelStyle:Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: Colors.black.withOpacity(0.7)
-        ) ,
-        suffixIcon: Icon(icon),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        labelStyle: WidgetStateTextStyle.resolveWith((states) {
+          if (states.contains(WidgetState.error)) {
+            return TextStyle(color: Colors.red); // Red label in error state
+          }
+          return Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: Colors.black.withOpacity(0.7), // Default label color
+                  ) ??
+              TextStyle();
+        }),
+        suffixIcon: suffixIcon,
         fillColor: Colors.white,
         filled: true,
       ),

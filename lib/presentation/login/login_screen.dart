@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/core/constants.dart';
-import 'package:online_exam/core/utils/routes_manager.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
 
 import '../../core/reusable_components/custom_button.dart';
@@ -15,11 +14,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController emailController ;
-  late TextEditingController passController ;
-  bool checkBoxClick = false ;
-  bool visable = true;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late TextEditingController emailController;
+  late TextEditingController passController;
   @override
   void initState() {
     // TODO: implement initState
@@ -27,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     emailController = TextEditingController();
     passController = TextEditingController();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -39,90 +36,80 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: REdgeInsets.symmetric(horizontal: 16),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Padding(
+        padding: REdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.arrow_back_ios,size: 20.sp,),
-                    Text(StringsManager.login,style: Theme.of(context).textTheme.headlineMedium,)
-                  ],
+                Icon(
+                  Icons.arrow_back_ios,
+                  size: 20.sp,
                 ),
-                SizedBox(height: 24.h,),
-                CustomFormField(title: StringsManager.emailTitle,
-                  hintText: StringsManager.emailHint, keyboardType: TextInputType.emailAddress,controller: emailController, validation:
-                        (email) {
-                          if (email == null || email.trim().isEmpty || !Constants.emailRegex.hasMatch(email)) {
-                            return StringsManager.thisEmailIsNotValid;
-                          }
-                          },),
-                SizedBox(height: 24.h,),
-                CustomFormField(title: StringsManager.passwordTitle,
-                  obscure: visable,
-                  hintText: StringsManager.passwordHint, controller: passController, validation:
-                        (pass) {
-                          if (pass == null || pass.trim().isEmpty ) {
-                            return StringsManager.thisPassIsNotValid;
-                          }
-                          if (pass.length < 6) {
-                            return StringsManager.thisPassIsWeak;
-                          }
-                        },
-                icon: visable?Icons.visibility_off: Icons.visibility,
-                  onIconTap: () {
-                  visable = ! visable;
-                  setState(() {
-
-                  });
-                  },),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: checkBoxClick, onChanged: (value) {
-                      checkBoxClick = value!;
-                      setState(() {
-
-                      });
-                    },semanticLabel: StringsManager.rememberMe,),
-                    Text(StringsManager.rememberMe,style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontSize: 13.sp
-                    ),),
-                    Spacer(),
-                    InkWell(
-                      onTap: () {
-
-                      },
-                        child: Text(StringsManager.forgotPass,style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          decoration: TextDecoration.underline
-                        )))
-                  ],
-                ),
-                SizedBox(height: 48.h,),
-                CustomButton(title: StringsManager.login, onPressed: () {
-                  if(formKey.currentState?.validate() == false){
-                    return ;
-                  }
-                },),
-                SizedBox(height: 16.h,),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, RoutesManager.registerRoteName);
-                  },
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                      child: Text(StringsManager.dontHaveAccount,style: TextStyle(
-                        decorationColor: Colors.blue,
-                          decoration: TextDecoration.underline,color: Colors.blue),)),
+                Text(
+                  StringsManager.login,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 )
               ],
             ),
-          ),
+            SizedBox(
+              height: 24.h,
+            ),
+            CustomFormField(
+              title: StringsManager.emailTitle,
+              hintText: StringsManager.emailHint,
+              controller: emailController,
+              validation: (email) {
+                (email) {
+                  if (email == null ||
+                      email.trim().isEmpty ||
+                      email != Constants.emailRegex.hasMatch(email)) {
+                    return StringsManager.thisEmailIsNotValid;
+                  }
+                };
+              },
+            ),
+            SizedBox(
+              height: 24.h,
+            ),
+            CustomFormField(
+              title: StringsManager.passwordTitle,
+              hintText: StringsManager.passwordHint,
+              controller: passController,
+              validation: (email) {
+                (pass) {
+                  if (pass == null || pass.trim().isEmpty || pass < 8) {
+                    return StringsManager.thisPassIsNotValid;
+                  }
+                };
+              },
+              icon: Icons.visibility_off,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Checkbox(
+                  value: true,
+                  onChanged: (value) {},
+                  semanticLabel: StringsManager.rememberMe,
+                ),
+                Text(StringsManager.forgotPass)
+              ],
+            ),
+            SizedBox(
+              height: 48.h,
+            ),
+            CustomButton(
+              title: StringsManager.login,
+              onPressed: () {},
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            Text(StringsManager.dontHaveAccount)
+          ],
         ),
       ),
     );

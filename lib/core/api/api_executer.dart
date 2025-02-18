@@ -1,17 +1,24 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:online_exam/core/exceptions/exceptions.dart';
 
 import '../utils/result.dart';
 
 Future<Result<T>> apiExecutor<T>(Future<T> Function() apiCall) async {
+  final List<ConnectivityResult> connectivityResult =
+      await (Connectivity().checkConnectivity());
+  if (!connectivityResult.contains(ConnectivityResult.mobile) &&
+      !connectivityResult.contains(ConnectivityResult.wifi)) {
+    return Err<T>(ex: NetworkError('Check your internet connection'));
+  }
   try {
     var result = await apiCall.call();
     return Success<T>(result);
   } on DioException catch (dioEx) {
     // Handle Dio-specific exceptions
-    return Err(ex: _handleDioException(dioEx));
+    return Err<T>(ex: _handleDioException(dioEx));
   } on Exception catch (ex) {
-    return (Err(ex: ex));
+    return (Err<T>(ex: ex));
   }
 }
 

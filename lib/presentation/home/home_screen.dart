@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedIndex = 2;
+  int selectedIndex = 0;
   static const List<Widget> homeTaps = [
     ExploreTab(),
     ResultTab(),
@@ -64,35 +64,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-/*
-BottomNavigationBarItem customBottomNavigationBarItem({required Widget icon}) {
-  return BottomNavigationBarItem(
-    icon: icon,
-    label: '',
-    backgroundColor: ColorsManager.primaryColor,
-    activeIcon: Container(
-      decoration: const BoxDecoration(
-          color: ColorsManager.primaryColor, shape: BoxShape.),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: icon,
-      ),
-    ),
-  );
-}
-/*BottomNavigationBar(
-          currentIndex: selectedIndex,
-          selectedItemColor: ColorsManager.primaryColor,
-          //unselectedItemColor: AppColors.whiteColor,
-          onTap: (value) {
-            selectedIndex = value;
-            setState(() {});
-          },
-          backgroundColor: ColorsManager.bottomNavBarColor,
-          items: [
-            customBottomNavigationBarItem(icon: const Icon(Icons.home_filled)),
-            customBottomNavigationBarItem(
-                icon: const ImageIcon(
-                    AssetImage('assets/icons/result_icon.png'))),
-            customBottomNavigationBarItem(icon: const Icon(Icons.person)),
-          ]), */*/
