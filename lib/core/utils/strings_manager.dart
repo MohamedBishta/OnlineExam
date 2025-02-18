@@ -11,10 +11,10 @@ class StringsManager {
   static const String passwordHint = 'Enter password';
   static const String currentPasswordTitle = 'Password';
   static const String currentPasswordHint = 'Enter password';
-  static const String newPasswordTitle = 'Password';
-  static const String newPasswordHint = 'Enter password';
+  static const String newPasswordTitle = 'NewPassword';
+  static const String newPasswordHint = 'Enter New password';
   static const String confirmPasswordTitle = 'Confirm password';
-  static const String confirmPasswordHint = 'Confirm password';
+  static const String confirmPasswordHint = 'Enter Confirm password';
   static const String phoneTitle = 'Phone number';
   static const String phoneHint = 'Enter phone number';
   static const String signUp = 'Signup';
@@ -30,7 +30,7 @@ class StringsManager {
   static const String rememberMe = 'Remember me';
   static const String dontHaveAccount = "Don't have an account? Sign up ";
   static const String token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGFjMDJkODZhMDI0ZjA2ZWEyMDdjNCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3MTQ2NDEzfQ.ju8fNT_6jQvYo_mxJpWMep25hrSqgABFeaqdfnQi4T8';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjUwMzA2ODZhMDI0ZjA2ZWEyODFlMiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM5OTE2NDgwfQ.B5uQNiOYZLNIVS520q5J_j1tP_3aijowomlF8gKtDAk';
   static const String update = 'Update';
   static const String profile = 'Profile';
   static const String editeProfile = 'Edite Profile';

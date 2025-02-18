@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/core/reusable_components/custom_button.dart';
 import 'package:online_exam/core/reusable_components/custom_form_field.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/core/utils/validators.dart';
+import 'package:online_exam/data/models/change_password_input_model.dart';
+
+import '../../../../core/utils/snackbar_utils.dart';
+import 'cubit/profile_cubit.dart';
 
 class ResetPasswordView extends StatefulWidget {
   const ResetPasswordView({super.key});
@@ -19,6 +25,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var viewModel = getIt.get<ProfileCubit>();
   @override
   void dispose() {
     // Dispose all controllers
@@ -31,61 +39,86 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          StringsManager.resetPassword,
-          style: GoogleFonts.inter(
-              textStyle: Theme.of(context).textTheme.headlineMedium),
-        ),
-        leading: InkWell(
-            onTap: () => Navigator.pop(context),
-            child: Icon(Icons.arrow_back_ios)),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16.0.w),
-            child: CustomFormField(
-              title: StringsManager.currentPasswordTitle,
-              hintText: StringsManager.currentPasswordHint,
-              controller: _currentPasswordController,
-              validation: ValidatorsManager.validatePassword,
+    return BlocListener<ProfileCubit, ProfileState>(
+        bloc: viewModel,
+        listener: (context, state) {
+          if (state is ProfileSuccess) {
+            Navigator.pop(context);
+            SnackBarUtils.showSnackBar(
+                context: context, text: "Password Changes Successfully");
+          } else if (state is ProfileErr) {
+            SnackBarUtils.showSnackBar(context: context, text: state.errMsg);
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              StringsManager.resetPassword,
+              style: GoogleFonts.inter(
+                  textStyle: Theme.of(context).textTheme.headlineMedium),
             ),
+            leading: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Icon(Icons.arrow_back_ios)),
           ),
-          Padding(
-            padding: EdgeInsets.all(16.0.w),
-            child: CustomFormField(
-              title: StringsManager.newPasswordTitle,
-              hintText: StringsManager.newPasswordHint,
-              controller: _newPasswordController,
-              validation: ValidatorsManager.validatePassword,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.0.w),
-            child: CustomFormField(
-              title: StringsManager.confirmPasswordTitle,
-              hintText: StringsManager.confirmPasswordHint,
-              controller: _confirmPasswordController,
-              validation: ValidatorsManager.validatePassword,
-            ),
-          ),
-          SizedBox(
-            height: 40.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
+          body: Form(
+            key: _formKey,
+            child: Column(
               children: [
-                Expanded(
-                    child: CustomButton(
-                        title: StringsManager.update, onPressed: () {})),
+                Padding(
+                  padding: EdgeInsets.all(16.0.w),
+                  child: CustomFormField(
+                    title: StringsManager.currentPasswordTitle,
+                    hintText: StringsManager.currentPasswordHint,
+                    controller: _currentPasswordController,
+                    validation: ValidatorsManager.validatePassword,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0.w),
+                  child: CustomFormField(
+                    title: StringsManager.newPasswordTitle,
+                    hintText: StringsManager.newPasswordHint,
+                    controller: _newPasswordController,
+                    validation: ValidatorsManager.validatePassword,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0.w),
+                  child: CustomFormField(
+                    title: StringsManager.confirmPasswordTitle,
+                    hintText: StringsManager.confirmPasswordHint,
+                    controller: _confirmPasswordController,
+                    validation: ValidatorsManager.validatePassword,
+                  ),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: CustomButton(
+                              title: StringsManager.update,
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  viewModel.changePassword(
+                                      ChangePasswordInputModel(
+                                          oldPassword:
+                                              _currentPasswordController.text,
+                                          password: _newPasswordController.text,
+                                          rePassword:
+                                              _confirmPasswordController.text));
+                                }
+                              })),
+                    ],
+                  ),
+                )
               ],
             ),
-          )
-        ],
-      ),
-    );
+          ),
+        ));
   }
 }
