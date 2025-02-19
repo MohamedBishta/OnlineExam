@@ -11,6 +11,7 @@ import 'package:online_exam/core/utils/assets_manager.dart';
 import 'package:online_exam/core/utils/colors_manager.dart';
 import 'package:online_exam/core/utils/font_manager.dart';
 import 'package:online_exam/core/utils/routes_manager.dart';
+import 'package:online_exam/core/utils/shared_prefrence_manager.dart';
 import 'package:online_exam/core/utils/snackbar_utils.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/presentation/home/tabs/profile/cubit/profile_cubit.dart';
@@ -28,7 +29,7 @@ class _ProfileTabState extends State<ProfileTab> {
   @override
   void initState() {
     super.initState();
-    viewModel.getProfileData();
+    viewModel.processIntent(GetProfileIntent());
   }
 
   @override
@@ -42,7 +43,8 @@ class _ProfileTabState extends State<ProfileTab> {
           }
         },
         builder: (context, state) {
-          if (state is ProfileSuccess) {
+          if (state is ProfileSuccess ||
+              SharedPreferencesManager.getUser(StringsManager.user) != null) {
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
@@ -154,7 +156,8 @@ class _ProfileTabState extends State<ProfileTab> {
                 ],
               ),
             );
-          } else if (state is ProfileErr) {
+          } else if (state is ProfileErr &&
+              SharedPreferencesManager.getUser(StringsManager.user) == null) {
             return CustomErrIcon();
           } else {
             return CustomCircularIndicator();

@@ -12,7 +12,7 @@ class CustomCircularIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: SpinKitThreeBounce(
-      color: ColorsManager.grayColor,
+      color: ColorsManager.primaryColor,
       size: 30.w,
     ));
   }

@@ -37,6 +37,10 @@ class StringsManager {
   static const String user = 'user';
   static const String change = 'change';
   static const String resetPassword = 'Reset password';
+  static const String profileUpdatedSuccessfully =
+      'Profile updated successfully';
+  static const String passwordChangedSuccessfully =
+      'passwordChangedSuccessfully';
 
   // 'Reset password'
 }

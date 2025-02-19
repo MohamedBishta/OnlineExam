@@ -10,85 +10,109 @@ import 'package:online_exam/domain/useCases/change_password_usecase.dart';
 import 'package:online_exam/domain/useCases/edite_profile_usecase.dart';
 import 'package:online_exam/domain/useCases/get_profile_usecase.dart';
 
-import '../../../../../core/utils/shared_prefrence_manager.dart';
-import '../../../../../core/utils/strings_manager.dart';
-
 part 'profile_state.dart';
 
 @injectable
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit(this._getProfileUsecase, this._editeProfileUsecase,
-      this._changePasswordUsecase)
-      : super(ProfileInitial());
-  static get(context) => BlocProvider.of<ProfileCubit>(context);
+  ProfileCubit(
+    this._getProfileUsecase,
+    this._editeProfileUsecase,
+    this._changePasswordUsecase,
+  ) : super(ProfileInitial());
+
+  static ProfileCubit get(BuildContext context) => BlocProvider.of(context);
+
   final GetProfileUsecase _getProfileUsecase;
   final EditeProfileUsecase _editeProfileUsecase;
   final ChangePasswordUsecase _changePasswordUsecase;
-  final TextEditingController usernameController = TextEditingController(
-    text: SharedPreferencesManager.getUser(StringsManager.user)!.username,
-  );
-  final TextEditingController firstNameController = TextEditingController(
-    text: SharedPreferencesManager.getUser(StringsManager.user)!.firstName,
-  );
-  final TextEditingController lastNameController = TextEditingController(
-    text: SharedPreferencesManager.getUser(StringsManager.user)!.lastName,
-  );
-  final TextEditingController emailController = TextEditingController(
-    text: SharedPreferencesManager.getUser(StringsManager.user)!.email,
-  );
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController =
       TextEditingController(text: '********');
-  final TextEditingController phoneController = TextEditingController(
-    text: SharedPreferencesManager.getUser(StringsManager.user)!.phone,
-  );
-  static GetProfileEntity? profileDate;
-  getProfileData() async {
-    emit(ProfileLoading());
-    var response = await _getProfileUsecase.call();
+  final TextEditingController phoneController = TextEditingController();
 
-    switch (response) {
-      case Success():
-        {
-          profileDate = response.data;
+  GetProfileEntity? profileData;
 
-          emit(ProfileSuccess(profileData: profileDate));
-        }
-      case Err():
-        {
-          emit(ProfileErr(errMsg: response.ex.toString()));
-        }
+  void processIntent(ProfileIntent intent) {
+    switch (intent) {
+      case GetProfileIntent():
+        _getProfileData();
+        break;
+      case EditeProfileIntent():
+        _editeProfileData(intent.editeProfileInputModel);
+        break;
+      case ChangePasswordIntent():
+        _changePassword(intent.changePasswordInputModel);
+        break;
     }
   }
 
-  editeProfileData(EditeProfileInputModel editeProfileInputModel) async {
+  void _getProfileData() async {
     emit(ProfileLoading());
-    var response = await _editeProfileUsecase.call(editeProfileInputModel);
+    final response = await _getProfileUsecase.call();
 
     switch (response) {
       case Success():
-        {
-          emit(ProfileSuccess(editeProfileResponseModel: response.data));
-        }
+        profileData = response.data;
+        _updateControllers();
+        emit(ProfileSuccess(profileData: profileData));
+        break;
       case Err():
-        {
-          emit(ProfileErr(errMsg: response.ex.toString()));
-        }
+        emit(ProfileErr(errMsg: response.ex.toString()));
     }
   }
 
-  changePassword(ChangePasswordInputModel changePasswordInputModel) async {
+  void _editeProfileData(EditeProfileInputModel editeProfileInputModel) async {
     emit(ProfileLoading());
-    var response = await _changePasswordUsecase.call(changePasswordInputModel);
+    final response = await _editeProfileUsecase.call(editeProfileInputModel);
 
     switch (response) {
       case Success():
-        {
-          emit(ProfileSuccess());
-        }
+        emit(ProfileSuccess(editeProfileResponseModel: response.data));
+        break;
       case Err():
-        {
-          emit(ProfileErr(errMsg: response.ex.toString()));
-        }
+        emit(ProfileErr(errMsg: response.ex.toString()));
     }
   }
+
+  void _changePassword(
+      ChangePasswordInputModel changePasswordInputModel) async {
+    emit(ProfileLoading());
+    final response =
+        await _changePasswordUsecase.call(changePasswordInputModel);
+
+    switch (response) {
+      case Success():
+        emit(ProfileSuccess());
+        break;
+      case Err():
+        emit(ProfileErr(errMsg: response.ex.toString()));
+    }
+  }
+
+  void _updateControllers() {
+    if (profileData != null) {
+      usernameController.text = profileData!.user!.username!;
+      firstNameController.text = profileData!.user!.firstName!;
+      lastNameController.text = profileData!.user!.lastName!;
+      emailController.text = profileData!.user!.email!;
+      phoneController.text = profileData!.user!.phone!;
+    }
+  }
+}
+
+sealed class ProfileIntent {}
+
+class GetProfileIntent extends ProfileIntent {}
+
+class EditeProfileIntent extends ProfileIntent {
+  final EditeProfileInputModel editeProfileInputModel;
+  EditeProfileIntent(this.editeProfileInputModel);
+}
+
+class ChangePasswordIntent extends ProfileIntent {
+  final ChangePasswordInputModel changePasswordInputModel;
+  ChangePasswordIntent(this.changePasswordInputModel);
 }

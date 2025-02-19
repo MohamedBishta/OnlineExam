@@ -14,8 +14,8 @@ class SnackBarUtils {
       content: Text(
         text,
         style: GoogleFonts.poppins(
-            textStyle:
-                const TextStyle(color: ColorsManager.primaryColor, fontSize: 16)),
+            textStyle: const TextStyle(
+                color: ColorsManager.bottomNavBarColor, fontSize: 16)),
       ),
     );
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(snackBar);

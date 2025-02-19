@@ -9,6 +9,7 @@ import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/core/utils/validators.dart';
 import 'package:online_exam/data/models/change_password_input_model.dart';
 
+import '../../../../core/reusable_components/custom_circular_indicator.dart';
 import '../../../../core/utils/snackbar_utils.dart';
 import 'cubit/profile_cubit.dart';
 
@@ -45,9 +46,17 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
           if (state is ProfileSuccess) {
             Navigator.pop(context);
             SnackBarUtils.showSnackBar(
-                context: context, text: "Password Changes Successfully");
+                context: context,
+                text: StringsManager.passwordChangedSuccessfully);
           } else if (state is ProfileErr) {
             SnackBarUtils.showSnackBar(context: context, text: state.errMsg);
+          } else if (state is ProfileLoading) {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const CustomCircularIndicator();
+                });
           }
         },
         child: Scaffold(
@@ -100,19 +109,24 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                   child: Row(
                     children: [
                       Expanded(
-                          child: CustomButton(
-                              title: StringsManager.update,
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  viewModel.changePassword(
-                                      ChangePasswordInputModel(
-                                          oldPassword:
-                                              _currentPasswordController.text,
-                                          password: _newPasswordController.text,
-                                          rePassword:
-                                              _confirmPasswordController.text));
-                                }
-                              })),
+                        child: CustomButton(
+                          title: StringsManager.update,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              viewModel.processIntent(
+                                ChangePasswordIntent(
+                                  ChangePasswordInputModel(
+                                      oldPassword:
+                                          _currentPasswordController.text,
+                                      password: _newPasswordController.text,
+                                      rePassword:
+                                          _confirmPasswordController.text),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 )

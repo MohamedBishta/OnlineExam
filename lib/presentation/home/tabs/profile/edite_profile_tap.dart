@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_exam/core/reusable_components/custom_button.dart';
 import 'package:online_exam/core/reusable_components/custom_form_field.dart';
+import 'package:online_exam/core/utils/assets_manager.dart';
 import 'package:online_exam/core/utils/shared_prefrence_manager.dart';
 import 'package:online_exam/core/utils/snackbar_utils.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
@@ -11,6 +12,8 @@ import 'package:online_exam/core/utils/validators.dart';
 import 'package:online_exam/data/models/edite_profile_input_model.dart';
 import 'package:online_exam/domain/entity/get_profile_entity.dart';
 import 'package:online_exam/presentation/home/tabs/profile/cubit/profile_cubit.dart';
+
+import '../../../../core/reusable_components/custom_circular_indicator.dart';
 
 class EditeProfileTab extends StatefulWidget {
   const EditeProfileTab({super.key});
@@ -21,7 +24,6 @@ class EditeProfileTab extends StatefulWidget {
 
 class _EditeProfileTabState extends State<EditeProfileTab> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // var viewModel = getIt.get<ProfileCubit>();
   UserEntity profileData =
       SharedPreferencesManager.getUser(StringsManager.user)!;
   @override
@@ -35,14 +37,21 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
           if (state is ProfileSuccess) {
             SharedPreferencesManager.updateUser(
                 key: StringsManager.user, user: profileData);
-            print(SharedPreferencesManager.getUser(StringsManager.user)!
-                .firstName);
             SnackBarUtils.showSnackBar(
-                context: context, text: 'Profile Updated Succssesfuly');
+                context: context,
+                text: StringsManager.profileUpdatedSuccessfully);
             Navigator.pop(context);
-            // Navigator.pushReplacementNamed(context, RoutesManager.homeRoteName);
+            Navigator.pop(context);
+            // Navigator.pushReplacementNamed(context, RoutesManager.homeRoteName)
           } else if (state is ProfileErr) {
             SnackBarUtils.showSnackBar(context: context, text: state.errMsg);
+          } else if (state is ProfileLoading) {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const CustomCircularIndicator();
+                });
           }
         },
         child: Padding(
@@ -73,8 +82,7 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      backgroundImage:
-                          AssetImage('assets/images/profile_test.jpg'),
+                      backgroundImage: AssetImage(AssetsManager.profile),
                       radius: 40.r,
                     ),
                   ],
@@ -134,8 +142,8 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
                                   phone: viewModel.phoneController.text,
                                   username: viewModel.usernameController.text,
                                 );
-                                viewModel.editeProfileData(
-                                    profileData as EditeProfileInputModel);
+                                viewModel.processIntent(EditeProfileIntent(
+                                    profileData as EditeProfileInputModel));
                               }
 
                               // Navigator.pop(context);
