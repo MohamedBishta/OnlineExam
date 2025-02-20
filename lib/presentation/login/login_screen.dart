@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/core/constants.dart';
+import 'package:online_exam/core/utils/routing/routes_manager.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
 
 import '../../core/reusable_components/custom_button.dart';
@@ -16,6 +17,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController emailController;
   late TextEditingController passController;
+  bool checkBoxClick = false;
+  bool visable = true;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   void initState() {
     // TODO: implement initState
