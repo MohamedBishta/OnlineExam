@@ -19,16 +19,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: Size(375,812),
       minTextAdapt: true,
       builder: (context, child) => MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: MyTheme.lightTheme,
-        initialRoute: RoutesManager.registerRoteName,
+        initialRoute: RoutesManager.loginRouteName,
         routes: {
-          RoutesManager.loginRouteName: (_) => LoginScreen(),
-          RoutesManager.registerRoteName: (_) => RegisterScreen(),
+          RoutesManager.loginRouteName : (_)=> LoginScreen(),
+          RoutesManager.registerRoteName : (_)=> RegisterScreen(),
         },
       ),
     );

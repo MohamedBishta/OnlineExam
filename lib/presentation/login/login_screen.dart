@@ -96,7 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Spacer(),
                     InkWell(
                       onTap: () {
-
+                               Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                return ForgetPassword();
+                               },));
                       },
                         child: Text(StringsManager.forgotPass,style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           decoration: TextDecoration.underline

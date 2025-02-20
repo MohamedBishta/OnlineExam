@@ -9,6 +9,7 @@ Future<Result<T>> apiExecutor<T>(Future<T> Function() apiCall) async {
     return Success<T>(result);
   } on DioException catch (dioEx) {
     // Handle Dio-specific exceptions
+
     return Err(ex: _handleDioException(dioEx));
   } on Exception catch (ex) {
     return (Err(ex: ex));
