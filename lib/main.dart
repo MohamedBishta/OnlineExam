@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/config/theme/my_theme.dart';
 import 'package:online_exam/core/utils/bloc_observer.dart';
-import 'package:online_exam/core/utils/routes_manager.dart';
 import 'package:online_exam/core/utils/shared_prefrence_manager.dart';
 import 'package:online_exam/presentation/home/home_screen.dart';
 import 'package:online_exam/presentation/home/tabs/profile/edite_profile_tap.dart';
@@ -12,12 +12,22 @@ import 'package:online_exam/presentation/home/tabs/profile/reset_password_view.d
 import 'package:online_exam/presentation/login/login_screen.dart';
 import 'package:online_exam/presentation/register/register_screen.dart';
 
+import 'core/utils/routing/routes_manager.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized(); // I
   Bloc.observer = MyBlocObserver();
   configureDependencies();
   await SharedPreferencesManager.initialize();
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en')], // Supported locales
+      path: 'assets/translations', // Path to translations folder
+      fallbackLocale: const Locale('en'), // Fallback locale
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +40,9 @@ class MyApp extends StatelessWidget {
       designSize: Size(375, 812),
       minTextAdapt: true,
       builder: (context, child) => MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: MyTheme.lightTheme,

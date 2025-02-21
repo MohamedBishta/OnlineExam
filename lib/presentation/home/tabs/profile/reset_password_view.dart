@@ -44,18 +44,19 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
         bloc: viewModel,
         listener: (context, state) {
           if (state is ProfileSuccess) {
-            Navigator.pop(context);
+            Navigator.popUntil(context, (route) => route.isFirst);
             SnackBarUtils.showSnackBar(
                 context: context,
                 text: StringsManager.passwordChangedSuccessfully);
           } else if (state is ProfileErr) {
             SnackBarUtils.showSnackBar(context: context, text: state.errMsg);
+            Navigator.pop(context);
           } else if (state is ProfileLoading) {
             showDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (context) {
-                  return const CustomCircularIndicator();
+                  return const CustomLoadingIndicator();
                 });
           }
         },

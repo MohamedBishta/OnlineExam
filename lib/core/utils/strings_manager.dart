@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class StringsManager {
   static String get userNameTitle => 'userNameTitle'.tr();
   static String get userNameHint => 'userNameHint'.tr();
@@ -31,6 +33,8 @@ class StringsManager {
   static String get token => 'token'.tr();
   static String get update => 'update'.tr();
   static String get profile => 'profile'.tr();
+  static String get explore => 'explore'.tr();
+  static String get results => 'results'.tr();
   static String get editeProfile => 'editeProfile'.tr();
   static String get user => 'user'.tr();
   static String get change => 'change'.tr();
@@ -39,4 +43,4 @@ class StringsManager {
       'profileUpdatedSuccessfully'.tr();
   static String get passwordChangedSuccessfully =>
       'passwordChangedSuccessfully'.tr();
-  }
+}

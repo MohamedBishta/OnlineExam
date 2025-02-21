@@ -52,7 +52,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   void _getProfileData() async {
     emit(ProfileLoading());
     final response = await _getProfileUsecase.call();
-
     switch (response) {
       case Success():
         profileData = response.data;

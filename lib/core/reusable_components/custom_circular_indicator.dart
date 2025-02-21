@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:online_exam/core/utils/colors_manager.dart';
 
-class CustomCircularIndicator extends StatelessWidget {
-  const CustomCircularIndicator({
+class CustomLoadingIndicator extends StatelessWidget {
+  const CustomLoadingIndicator({
     super.key,
   });
 

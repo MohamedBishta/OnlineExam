@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_exam/core/reusable_components/custom_button.dart';
 import 'package:online_exam/core/reusable_components/custom_form_field.dart';
-import 'package:online_exam/core/utils/assets_manager.dart';
 import 'package:online_exam/core/utils/shared_prefrence_manager.dart';
 import 'package:online_exam/core/utils/snackbar_utils.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
@@ -40,8 +39,7 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
             SnackBarUtils.showSnackBar(
                 context: context,
                 text: StringsManager.profileUpdatedSuccessfully);
-            Navigator.pop(context);
-            Navigator.pop(context);
+            Navigator.popUntil(context, (route) => route.isFirst);
             // Navigator.pushReplacementNamed(context, RoutesManager.homeRoteName)
           } else if (state is ProfileErr) {
             SnackBarUtils.showSnackBar(context: context, text: state.errMsg);
@@ -50,7 +48,7 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) {
-                  return const CustomCircularIndicator();
+                  return const CustomLoadingIndicator();
                 });
           }
         },
@@ -78,7 +76,7 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
                     ),
                   ],
                 ),
-                Row(
+                /*Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
@@ -86,7 +84,7 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
                       radius: 40.r,
                     ),
                   ],
-                ),
+                ),*/
                 CustomFormField(
                   title: StringsManager.userNameTitle,
                   hintText: StringsManager.userNameHint,
@@ -150,9 +148,6 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
                             })),
                   ],
                 ),
-                SizedBox(
-                  height: 70.h,
-                )
               ],
             ),
           ),

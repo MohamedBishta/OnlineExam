@@ -5,6 +5,8 @@ import 'package:online_exam/presentation/home/tabs/explore/explore_tab.dart';
 import 'package:online_exam/presentation/home/tabs/profile/profile_tab.dart';
 import 'package:online_exam/presentation/home/tabs/result/result_tab.dart';
 
+import '../../core/utils/strings_manager.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -19,10 +21,25 @@ class _HomeScreenState extends State<HomeScreen> {
     ResultTab(),
     ProfileTab(),
   ];
+  static List<String> title = [
+    StringsManager.explore,
+    StringsManager.results,
+    StringsManager.profile
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: homeTaps[selectedIndex],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 16.0.w, top: 54.h),
+            child: Text(title[selectedIndex],
+                style: Theme.of(context).textTheme.headlineMedium),
+          ),
+          Expanded(child: homeTaps[selectedIndex]),
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
         animationDuration: Duration(seconds: 0),
         // backgroundColor: ColorsManager.primaryColor,
