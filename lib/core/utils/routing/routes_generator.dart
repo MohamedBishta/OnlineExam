@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/utils/routing/routes_manager.dart';
-import 'package:online_exam/presentation/register/register_screen.dart';
+import 'package:online_exam/presentation/home/home_screen.dart';
 
-import '../../../presentation/login/login_screen.dart';
+import '../../../presentation/auth/login/login_screen.dart';
+import '../../../presentation/auth/register/register_screen.dart';
+
 
 abstract class RoutesGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -11,6 +13,8 @@ abstract class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case RoutesManager.registerRoteName:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
+        case RoutesManager.homeRoteName:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:
         return MaterialPageRoute(builder: (_) => const UnknownScreen());
     }

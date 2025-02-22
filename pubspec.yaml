@@ -42,6 +42,7 @@ dependencies:
   easy_localization: ^3.0.7+1
   fluttertoast: ^8.2.12
   flutter_bloc: ^9.0.0
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
   flutter_test:
