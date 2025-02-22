@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/config/theme/my_theme.dart';
-import 'package:online_exam/core/utils/routes_manager.dart';
 import 'package:online_exam/presentation/login/login_screen.dart';
 import 'package:online_exam/presentation/register/register_screen.dart';
+
+import 'core/utils/routing/routes_manager.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
