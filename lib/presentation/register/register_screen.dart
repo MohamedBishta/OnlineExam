@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/constants.dart';
 import '../../core/reusable_components/custom_button.dart';
 import '../../core/reusable_components/custom_form_field.dart';
-import '../../core/utils/routes_manager.dart';
+import '../../core/utils/routing/routes_manager.dart';
 import '../../core/utils/strings_manager.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -15,13 +15,13 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  late TextEditingController userNameController ;
-  late TextEditingController firstNameController ;
-  late TextEditingController lastNameController ;
-  late TextEditingController emailController ;
-  late TextEditingController passController ;
-  late TextEditingController confirmPassController ;
-  late TextEditingController phoneController ;
+  late TextEditingController userNameController;
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+  late TextEditingController emailController;
+  late TextEditingController passController;
+  late TextEditingController confirmPassController;
+  late TextEditingController phoneController;
   bool visable = true;
   bool confvisable = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -37,6 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     confirmPassController = TextEditingController();
     phoneController = TextEditingController();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -49,6 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     confirmPassController.dispose();
     phoneController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,113 +66,174 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.arrow_back_ios,size: 20.sp,),
-                    Text(StringsManager.signUp,style: Theme.of(context).textTheme.headlineMedium,)
+                    Icon(
+                      Icons.arrow_back_ios,
+                      size: 20.sp,
+                    ),
+                    Text(
+                      StringsManager.signUp,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    )
                   ],
                 ),
-                SizedBox(height: 24.h,),
-                CustomFormField(title: StringsManager.userNameTitle,
-                  hintText: StringsManager.userNameHint,controller: userNameController, validation:
-                      (user) {
+                SizedBox(
+                  height: 24.h,
+                ),
+                CustomFormField(
+                  title: StringsManager.userNameTitle,
+                  hintText: StringsManager.userNameHint,
+                  controller: userNameController,
+                  validation: (user) {
                     if (user == null || user.trim().isEmpty) {
                       return StringsManager.thisUserIsNotValid;
                     }
-                  },),
-                SizedBox(height: 24.h,),
-                Row(children: [
-                  Expanded(
-                    child: CustomFormField(title: StringsManager.firstNameTitle,
-                      hintText: StringsManager.firstNameHint,controller: firstNameController, validation:
-                          (fname) {
-                        if (fname == null || fname.trim().isEmpty) {
-                          return StringsManager.firstNameHint;
-                        }
-                      },),
-                  ),
-                  SizedBox(width: 17.w,),
-                  Expanded(
-                    child: CustomFormField(title: StringsManager.lastNameTitle,
-                      hintText: StringsManager.lastNameHint,controller: lastNameController, validation:
-                          (lname) {
-                        if (lname == null || lname.trim().isEmpty) {
-                          return StringsManager.lastNameHint;
-                        }
-                      },),
-                  ),
-                ],),
-                SizedBox(height: 24.h,),
-                CustomFormField(title: StringsManager.emailTitle,
-                  hintText: StringsManager.emailHint, keyboardType: TextInputType.emailAddress,controller: emailController, validation:
-                      (email) {
-                    if (email == null || email.trim().isEmpty || !Constants.emailRegex.hasMatch(email)) {
+                  },
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomFormField(
+                        title: StringsManager.firstNameTitle,
+                        hintText: StringsManager.firstNameHint,
+                        controller: firstNameController,
+                        validation: (fname) {
+                          if (fname == null || fname.trim().isEmpty) {
+                            return StringsManager.firstNameHint;
+                          }
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 17.w,
+                    ),
+                    Expanded(
+                      child: CustomFormField(
+                        title: StringsManager.lastNameTitle,
+                        hintText: StringsManager.lastNameHint,
+                        controller: lastNameController,
+                        validation: (lname) {
+                          if (lname == null || lname.trim().isEmpty) {
+                            return StringsManager.lastNameHint;
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                CustomFormField(
+                  title: StringsManager.emailTitle,
+                  hintText: StringsManager.emailHint,
+                  keyboardType: TextInputType.emailAddress,
+                  controller: emailController,
+                  validation: (email) {
+                    if (email == null ||
+                        email.trim().isEmpty ||
+                        !Constants.emailRegex.hasMatch(email)) {
                       return StringsManager.thisEmailIsNotValid;
                     }
-                  },),
-                SizedBox(height: 24.h,),
-                Row(children: [
-                  Expanded(
-                    child: CustomFormField(title: StringsManager.passwordTitle,
-                      obscure: visable,
-                      hintText: StringsManager.passwordHint, controller: passController, validation:
-                          (pass) {
-                        if (pass == null || pass.trim().isEmpty ) {
-                          return StringsManager.thisPassIsNotValid;
-                        }
-                        if (pass.length < 6) {
-                          return StringsManager.thisPassIsWeak;
-                        }
-                      },
-                      icon: visable?Icons.visibility_off: Icons.visibility,
-                      onIconTap: () {
-                        visable = ! visable;
-                        setState(() {
-                    
-                        });
-                      },),
-                  ),
-                  SizedBox(width: 17.w,),
-                  Expanded(
-                    child: CustomFormField(title: StringsManager.confirmPasswordTitle,
-                      obscure: confvisable,
-                      hintText: StringsManager.confirmPasswordHint, controller: confirmPassController, validation:
-                          (confpass) {
-                        if (confpass == null || confpass.trim().isEmpty || confpass != passController.text ) {
-                          return StringsManager.confPassNotMatch;
-                        }
-                      },
-                      icon: confvisable?Icons.visibility_off: Icons.visibility,
-                      onIconTap: () {
-                        confvisable = ! confvisable;
-                        setState(() {
-                    
-                        });
-                      },),
-                  ),
-                ],),
-                SizedBox(height: 24.h,),
-                CustomFormField(title: StringsManager.phoneTitle,
-                  hintText: StringsManager.phoneHint, keyboardType: TextInputType.phone,controller: phoneController, validation:
-                      (phone) {
+                  },
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomFormField(
+                        title: StringsManager.passwordTitle,
+                        obscure: visable,
+                        hintText: StringsManager.passwordHint,
+                        controller: passController,
+                        validation: (pass) {
+                          if (pass == null || pass.trim().isEmpty) {
+                            return StringsManager.thisPassIsNotValid;
+                          }
+                          if (pass.length < 6) {
+                            return StringsManager.thisPassIsWeak;
+                          }
+                        },
+                        icon: visable ? Icons.visibility_off : Icons.visibility,
+                        onIconTap: () {
+                          visable = !visable;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 17.w,
+                    ),
+                    Expanded(
+                      child: CustomFormField(
+                        title: StringsManager.confirmPasswordTitle,
+                        obscure: confvisable,
+                        hintText: StringsManager.confirmPasswordHint,
+                        controller: confirmPassController,
+                        validation: (confpass) {
+                          if (confpass == null ||
+                              confpass.trim().isEmpty ||
+                              confpass != passController.text) {
+                            return StringsManager.confPassNotMatch;
+                          }
+                        },
+                        icon: confvisable
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        onIconTap: () {
+                          confvisable = !confvisable;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                CustomFormField(
+                  title: StringsManager.phoneTitle,
+                  hintText: StringsManager.phoneHint,
+                  keyboardType: TextInputType.phone,
+                  controller: phoneController,
+                  validation: (phone) {
                     if (phone == null || phone.trim().isEmpty) {
                       return StringsManager.phoneHint;
                     }
-                  },),
-                SizedBox(height: 48.h,),
-                CustomButton(title: StringsManager.signUp, onPressed: () {
-                  if(formKey.currentState?.validate() == false){
-                    return ;
-                  }
-                },),
-                SizedBox(height: 16.h,),
+                  },
+                ),
+                SizedBox(
+                  height: 48.h,
+                ),
+                CustomButton(
+                  title: StringsManager.signUp,
+                  onPressed: () {
+                    if (formKey.currentState?.validate() == false) {
+                      return;
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacementNamed(context, RoutesManager.loginRouteName);
+                    Navigator.pushReplacementNamed(
+                        context, RoutesManager.loginRouteName);
                   },
                   child: Align(
                       alignment: Alignment.bottomCenter,
-                      child: Text(StringsManager.alreadyHaveAccount,style: TextStyle(
-                          decorationColor: Colors.blue,
-                          decoration: TextDecoration.underline,color: Colors.blue),)),
+                      child: Text(
+                        StringsManager.alreadyHaveAccount,
+                        style: TextStyle(
+                            decorationColor: Colors.blue,
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue),
+                      )),
                 )
               ],
             ),

@@ -23,30 +23,9 @@ class CustomFormField extends StatelessWidget {
       keyboardType: keyboardType,
       validator: validation,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.r),
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.r)
-        ),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.r)
-        ),
         enabled: true,
-        errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.r)
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.r)
-        ),
-        hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-            fontSize: 14.sp,
-        ),
         hintText: hintText,
         labelText: title,
-        floatingLabelAlignment: FloatingLabelAlignment.start,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelStyle:Theme.of(context).textTheme.titleSmall,
         suffixIcon: InkWell(
           onTap: onIconTap,
             child: Icon(icon)),

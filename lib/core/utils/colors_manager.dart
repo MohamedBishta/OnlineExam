@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorsManager {
   static const int _baseBlueColor = 0xFF02369C;
-  static const int _baseGrayColor = 0xFF0F0F0F; // Base color
+  static const int _baseGrayColor = 0xFF0F0F0F;
   static const Color primaryColor = Color(_baseBlueColor);
   static const Color headTheme = Color(0xff0F0F0F);
   static const Color textTheme = Color(0xff535353);
@@ -24,7 +24,6 @@ class ColorsManager {
       1000: Color(0xFF000B1F), // 100%
     },
   );
-
 
   static const MaterialColor customGray = MaterialColor(
     _baseGrayColor,

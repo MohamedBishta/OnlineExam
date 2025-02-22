@@ -1,40 +1,44 @@
-class StringsManager{
-  static const String userNameTitle = 'User name';
-  static const String userNameHint = 'Enter you user name';
-  static const String firstNameTitle = 'First name';
-  static const String firstNameHint = 'Enter first name';
-  static const String lastNameTitle = 'Last name';
-  static const String lastNameHint = 'Enter last name';
-  static const String emailTitle = 'Email';
-  static const String emailHint = 'Enter you email';
-  static const String passwordTitle = 'Password';
-  static const String passwordHint = 'Enter password';
-  static const String confirmPasswordTitle = 'Confirm password';
-  static const String confirmPasswordHint = 'Confirm password';
-  static const String phoneTitle = 'Phone number';
-  static const String phoneHint = 'Enter phone number';
-  static const String signUp = 'Signup';
-  static const String login = 'Login';
-  static const String alreadyHaveAccount = 'Already have an account? Login';
-  static const String thisUserIsNotValid = 'This user name is not valid';
-  static const String thisEmailIsNotValid = 'This Email is not valid';
-  static const String thisPassIsNotValid = 'This Password is not valid';
-  static const String confPassNotMatch = 'Password not matched';
-  static const String thisPassIsWeak =
-      'Password must be at least 6 characters long';
-  static const String forgotPass = 'Forget password?';
-  static const String rememberMe = 'Remember me';
-  static const String dontHaveAccount = "Don't have an account? Sign up ";
-  static const String token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGFjMDJkODZhMDI0ZjA2ZWEyMDdjNCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3MTQ2NDEzfQ.ju8fNT_6jQvYo_mxJpWMep25hrSqgABFeaqdfnQi4T8';
-  static const String forgetPasswordTitle='Forget Password';
-  static const String forgetPasswordText='Please enter your email associated to\n your account';
-  static const String continueButton='Continue';
-  static const String emailVerificationTitle='Email verification';
-  static const String emailVerificationText='Please enter your code that send to\nyour email address ';
-  static const String otpSendText='Didn\'t receive code?';
-  static const String otpResendText='Resend';
-  static const String resetPasswordTitle='Reset Password';
-  static const String resetPasswordText='Password must not be empty and must contain\n6 characters with upper case letter and one\nnumber at least ';
-  static const String newPasswordTitle='New Password';
+import 'package:easy_localization/easy_localization.dart';
+
+class StringsManager {
+  static String get userNameTitle => 'userNameTitle'.tr();
+  static String get userNameHint => 'userNameHint'.tr();
+  static String get firstNameTitle => 'firstNameTitle'.tr();
+  static String get firstNameHint => 'firstNameHint'.tr();
+  static String get lastNameTitle => 'lastNameTitle'.tr();
+  static String get lastNameHint => 'lastNameHint'.tr();
+  static String get emailTitle => 'emailTitle'.tr();
+  static String get emailHint => 'emailHint'.tr();
+  static String get passwordTitle => 'passwordTitle'.tr();
+  static String get passwordHint => 'passwordHint'.tr();
+  static String get currentPasswordTitle => 'currentPasswordTitle'.tr();
+  static String get currentPasswordHint => 'currentPasswordHint'.tr();
+  static String get newPasswordTitle => 'newPasswordTitle'.tr();
+  static String get newPasswordHint => 'newPasswordHint'.tr();
+  static String get confirmPasswordTitle => 'confirmPasswordTitle'.tr();
+  static String get confirmPasswordHint => 'confirmPasswordHint'.tr();
+  static String get phoneTitle => 'phoneTitle'.tr();
+  static String get phoneHint => 'phoneHint'.tr();
+  static String get signUp => 'signUp'.tr();
+  static String get login => 'login'.tr();
+  static String get alreadyHaveAccount => 'alreadyHaveAccount'.tr();
+  static String get thisUserIsNotValid => 'thisUserIsNotValid'.tr();
+  static String get thisEmailIsNotValid => 'thisEmailIsNotValid'.tr();
+  static String get thisPassIsNotValid => 'thisPassIsNotValid'.tr();
+  static String get confPassNotMatch => 'confPassNotMatch'.tr();
+  static String get thisPassIsWeak => 'thisPassIsWeak'.tr();
+  static String get forgotPass => 'forgotPass'.tr();
+  static String get rememberMe => 'rememberMe'.tr();
+  static String get dontHaveAccount => 'dontHaveAccount'.tr();
+  static String get token => 'token'.tr();
+  static String get update => 'update'.tr();
+  static String get profile => 'profile'.tr();
+  static String get editeProfile => 'editeProfile'.tr();
+  static String get user => 'user'.tr();
+  static String get change => 'change'.tr();
+  static String get resetPassword => 'resetPassword'.tr();
+  static String get profileUpdatedSuccessfully =>
+      'profileUpdatedSuccessfully'.tr();
+  static String get passwordChangedSuccessfully =>
+      'passwordChangedSuccessfully'.tr();
 }
