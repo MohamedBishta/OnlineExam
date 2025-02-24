@@ -36,5 +36,15 @@
   "change": "change",
   "resetPassword": "Reset password",
   "profileUpdatedSuccessfully": "Profile updated successfully",
-  "passwordChangedSuccessfully": "Password changed successfully"
+  "passwordChangedSuccessfully": "Password changed successfully",
+  "forget_password_title": "Forget Password",
+  "forget_password_text": "Please enter your email associated to\nyour account",
+  "continue_button": "Continue",
+  "email_verification_title": "Email verification",
+  "email_verification_text": "Please enter your code that was sent to\nyour email address",
+  "otp_send_text": "Didn't receive code?",
+  "otp_resend_text": "Resend",
+  "reset_password_title": "Reset Password",
+  "reset_password_text": "Password must not be empty and must contain\n6 characters with an uppercase letter and one\nnumber at least",
+  "new_password_title": "New Password"
 }

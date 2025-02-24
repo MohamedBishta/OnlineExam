@@ -16,8 +16,7 @@ import '../../core/reusable_components/custom_form_field.dart';
 import 'cubit/foget_password_cubit.dart';
 
 class EmailVerification extends StatefulWidget {
-  var email;
-   EmailVerification({super.key,this.email});
+   EmailVerification({super.key});
 
   @override
   State<EmailVerification> createState() => _EmailVerificationState();
@@ -33,7 +32,9 @@ class _EmailVerificationState extends State<EmailVerification> {
     super.initState();
   }
   @override
+
   Widget build(BuildContext context) {
+    final email = ModalRoute.of(context)!.settings.arguments as String;
     return BlocProvider(
       create: (context) => homeViewModel,
       child: BlocConsumer<HomeViewModel, ForgetPasswordState>(
@@ -113,16 +114,21 @@ class _EmailVerificationState extends State<EmailVerification> {
                                   ?.copyWith(
                                       fontSize: 16.sp,
                                       color: ColorsManager.headTheme)),
-                          Text(StringsManager.otpResendText,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(
-                                      fontSize: 16.sp,
-                                      color: ColorsManager.babyBlue,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: ColorsManager.babyBlue))
+                          InkWell(
+                            onTap: (){
+                                     homeViewModel.onIntent(OtpResndIntent(email));
+                            },
+                            child: Text(StringsManager.otpResendText,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                        fontSize: 16.sp,
+                                        color: ColorsManager.babyBlue,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: ColorsManager.babyBlue)),
+                          )
                         ],
                       ),
                     ],
@@ -149,18 +155,26 @@ class _EmailVerificationState extends State<EmailVerification> {
             );
             Future.delayed(Duration(seconds: 2), () {
               Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ResetPassword(email:widget.email,)),
-              );
+              Navigator.pushNamed(context,'/changePassword',arguments:email);
             });
           } else if (state is ForgetPasswordFailure) {
             Navigator.pop(context);
             showDialog(
+              barrierDismissible: true,
               context: context,
               builder: (context) {
-                return Lottie.asset(
-                  'assets/animation/fail.json',
+                return AlertDialog(
+                  actions: <Widget>[
+                    Center(
+                      child: Lottie.asset(
+                          'assets/animation/fail.json',
+                          backgroundLoading: true,
+                          fit: BoxFit.cover
+                        // height: 10.0,
+                        // width: 20.0,
+                      ),
+                    )
+                  ],
                 );
               },
             );
@@ -176,6 +190,16 @@ class _EmailVerificationState extends State<EmailVerification> {
                 );
               },
             );
+          }else if(state is OtpResendSuccess){
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("OTP Code Sent Again!"),
+                backgroundColor: Colors.green,
+                duration: Duration(seconds: 2),
+              ),
+            );
+
           }
         },
       ),

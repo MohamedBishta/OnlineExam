@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController emailController;
   late TextEditingController passController;
   bool checkBoxClick = false;
+  bool check=false;
   bool visable = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
@@ -66,6 +67,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 24.h,
                 ),
                 CustomFormField(
+                  IsEnable: (p0) {
+
+                  },
                   title: StringsManager.emailTitle,
                   hintText: StringsManager.emailHint,
                   keyboardType: TextInputType.emailAddress,
@@ -82,6 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 24.h,
                 ),
                 CustomFormField(
+                   IsEnable: (p0) {
+
+                   },
                   title: StringsManager.passwordTitle,
                   obscure: visable,
                   hintText: StringsManager.passwordHint,
@@ -119,7 +126,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Spacer(),
                     InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context,'/forget');
+
+                        },
                         child: Text(StringsManager.forgotPass,
                             style: Theme.of(context)
                                 .textTheme
@@ -132,6 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 48.h,
                 ),
                 CustomButton(
+                  isEnable: check,
                   title: StringsManager.login,
                   onPressed: () {
                     if (formKey.currentState?.validate() == false) {

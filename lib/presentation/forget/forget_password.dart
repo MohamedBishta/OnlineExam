@@ -21,6 +21,7 @@ class ForgetPassword extends StatefulWidget {
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   final TextEditingController emailController = TextEditingController();
+  bool check=false;
   final _formKey = GlobalKey<FormState>();
   HomeViewModel homeViewModel = getIt.get<HomeViewModel>();
   @override
@@ -45,13 +46,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             );
             Future.delayed(Duration(seconds: 2), () {
               Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => EmailVerification(
-                      email: emailController.text,
-                    )),
-              );
+              Navigator.pushNamed(context,'/otp',arguments: emailController.text);
             });
           } else if (state is ForgetPasswordFailure) {
             Navigator.pop(context);
@@ -59,11 +54,18 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               barrierDismissible: true,
               context: context,
               builder: (context) {
-                return Lottie.asset(
-                  'assets/animation/fail.json',
-                  backgroundLoading: true,
-                  height: 10.0,
-                  width: 20.0,
+                return AlertDialog(
+                  actions: <Widget>[
+                    Center(
+                      child: Lottie.asset(
+                        'assets/animation/fail.json',
+                        backgroundLoading: true,
+                        fit: BoxFit.cover
+                        // height: 10.0,
+                        // width: 20.0,
+                      ),
+                    )
+                  ],
                 );
               },
             );
@@ -137,11 +139,18 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             return StringsManager.thisEmailIsNotValid;
                           }
                           return null;
+
+                        },
+                        IsEnable: (p0) {
+                          setState(() {
+                              c();
+                          });
                         },
                       ),
                       SizedBox(height: 20.h),
                       CustomButton(
                         title: StringsManager.continueButton,
+                        isEnable: c(),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             homeViewModel.onIntent(ForgotPasswordIntent(
@@ -159,4 +168,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       ),
     );
   }
+
+  bool c() {
+    var email = emailController.text;
+    return email.isNotEmpty && Constants.emailRegex.hasMatch(email);
+  }
+
+
 }

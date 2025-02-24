@@ -28,6 +28,9 @@ class HomeViewModel extends Cubit<ForgetPasswordState> {
       case LoadHomeIntent():
         _loadHome();
         break;
+      case OtpResndIntent():
+        _handleOtpResend(intent.email);
+        break;
     }
   }
 
@@ -52,6 +55,29 @@ class HomeViewModel extends Cubit<ForgetPasswordState> {
     }
   }
 
+  Future<void> _handleOtpResend(String email) async {
+    try {
+      emit(ForgetPasswordLoading());
+      var forgetPasssword = await forgetPasswordUseCase.forgetPassword(email);
+      if (forgetPasssword is Err) {
+        var error = (forgetPasssword as Err).ex;
+        if (error.toString().contains('404')) {
+          emit(ForgetPasswordFailure(
+              'The email address you entered is not valid. Please check and try again.'));
+        } else {
+          emit(ForgetPasswordFailure(error.toString()));
+        }
+      } else if (forgetPasssword is Success) {
+        var successMsg = (forgetPasssword as Success).data;
+        emit(OtpResendSuccess());
+      }
+    } on Exception catch (e) {
+      emit(ForgetPasswordFailure('$e'));
+    }
+  }
+
+
+
   Future<void> _handleOtpCode(String code) async {
     try {
       emit(ForgetPasswordLoading());
@@ -59,6 +85,7 @@ class HomeViewModel extends Cubit<ForgetPasswordState> {
       if (OtpCode is Err) {
         var error = (OtpCode as Err).ex;
         if (error.toString().contains('400')) {
+
           emit(ForgetPasswordFailure('Reset code is invalid or has expired'));
         } else {
           emit(ForgetPasswordFailure(error.toString()));
@@ -100,6 +127,11 @@ sealed class ForgetIntent {}
 class ForgotPasswordIntent extends ForgetIntent {
   final String email;
   ForgotPasswordIntent(this.email);
+}
+
+class OtpResndIntent extends ForgetIntent {
+  final String email;
+  OtpResndIntent(this.email);
 }
 
 class OtpCodeIntent extends ForgetIntent {

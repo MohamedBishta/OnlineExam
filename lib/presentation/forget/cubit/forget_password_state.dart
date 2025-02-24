@@ -12,3 +12,4 @@ class ForgetPasswordFailure extends ForgetPasswordState {
   final String error;
   ForgetPasswordFailure(this.error);
 }
+class OtpResendSuccess extends ForgetPasswordState{}

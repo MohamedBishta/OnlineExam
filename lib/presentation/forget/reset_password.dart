@@ -14,8 +14,7 @@ import 'cubit/foget_password_cubit.dart';
 import 'cubit/forget_password_state.dart';
 
 class ResetPassword extends StatefulWidget {
-  var email;
-  ResetPassword({super.key, this.email});
+  ResetPassword({super.key});
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
@@ -24,10 +23,18 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  bool check=false;
   final _formKey = GlobalKey<FormState>();
   HomeViewModel homeViewModel = getIt.get<HomeViewModel>();
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final email = ModalRoute.of(context)!.settings.arguments as String;
     return BlocProvider(
       create: (context) => homeViewModel,
       child: BlocConsumer<HomeViewModel, ForgetPasswordState>(
@@ -39,99 +46,114 @@ class _ResetPasswordState extends State<ResetPassword> {
                 padding: const EdgeInsets.all(10.0),
                 child: Form(
                   key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    spacing: 30.0,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.arrow_back_ios,
-                              size: 20.sp,
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      spacing: 30.0,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                size: 20.sp,
+                              ),
                             ),
-                          ),
-                          Text(StringsManager.passwordTitle,
-                              style:
-                                  Theme.of(context).textTheme.headlineMedium),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(StringsManager.resetPasswordTitle,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium
-                                  ?.copyWith(fontSize: 18.sp)),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(StringsManager.resetPasswordText,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(fontSize: 14.sp))
-                        ],
-                      ),
-                      CustomFormField(
-                        title: StringsManager.newPasswordTitle,
-                        hintText: StringsManager.passwordHint,
-                        controller: passwordController,
-                        validation: (password) {
-                          if (password == null || password.trim().isEmpty) {
-                            return StringsManager.thisPassIsNotValid;
-                          } else if (password.length < 7) {
-                            return StringsManager.thisPassIsNotValid;
-                          }
-                          return null;
-                        },
-                      ),
-                      CustomFormField(
-                        title: StringsManager.confirmPasswordTitle,
-                        hintText: StringsManager.confirmPasswordHint,
-                        controller: confirmPasswordController,
-                        validation: (password) {
-                          if (password == null || password.trim().isEmpty) {
-                            return StringsManager.thisPassIsNotValid;
-                          } else if (password.length < 7) {
-                            return StringsManager.thisPassIsNotValid;
-                          }
-                          return null;
-                        },
-                      ),
-                      CustomButton(
-                        title: StringsManager.continueButton,
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (confirmPasswordController.text ==
-                                passwordController.text) {
-                              homeViewModel.onIntent(NewPasswordIntent(
-                                  widget.email,
-                                  confirmPasswordController.text));
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text('check your password again'),
-                                    backgroundColor: Colors.red),
-                              );
+                            Text(StringsManager.passwordTitle,
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(StringsManager.resetPasswordTitle,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium
+                                    ?.copyWith(fontSize: 18.sp)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(StringsManager.resetPasswordText,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(fontSize: 14.sp))
+                          ],
+                        ),
+                        CustomFormField(
+                          IsEnable: (p0) {
+                                 setState(() {
+                                   c();
+                                 });
+                          },
+                          title: StringsManager.newPasswordTitle,
+                          hintText: StringsManager.passwordHint,
+                          controller: passwordController,
+                          validation: (password) {
+                            if (password == null || password.trim().isEmpty) {
+                              return StringsManager.thisPassIsNotValid;
+                            } else if (password.length < 7) {
+                              return StringsManager.thisPassIsNotValid;
                             }
-                          }
-                          return;
-                        },
-                      ),
-                    ],
+                            return null;
+                          },
+                        ),
+                        CustomFormField(
+                          IsEnable: (p0) {
+                             setState(() {
+                               c();
+                             });
+                          },
+                          title: StringsManager.confirmPasswordTitle,
+                          hintText: StringsManager.confirmPasswordHint,
+                          controller: confirmPasswordController,
+                          validation: (password) {
+                            if (password == null || password.trim().isEmpty) {
+                              return StringsManager.thisPassIsNotValid;
+                            } else if (password.length < 7) {
+                              return StringsManager.thisPassIsNotValid;
+                            }
+                            return null;
+                          },
+                        ),
+                        CustomButton(
+                          title: StringsManager.continueButton,
+                          isEnable: c(),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              if (confirmPasswordController.text ==
+                                  passwordController.text) {
+                                homeViewModel.onIntent(NewPasswordIntent(
+                                    email,
+                                    confirmPasswordController.text));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('check your password again'),
+                                      backgroundColor: Colors.red),
+                                );
+                              }
+                            }
+                            return;
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           );
+
         },
         listener: (context, state) {
           if (state is ForgetPasswordSuccess) {
@@ -154,10 +176,21 @@ class _ResetPasswordState extends State<ResetPassword> {
           } else if (state is ForgetPasswordFailure) {
             Navigator.pop(context);
             showDialog(
+              barrierDismissible: true,
               context: context,
               builder: (context) {
-                return Lottie.asset(
-                  'assets/animation/fail.json',
+                return AlertDialog(
+                  actions: <Widget>[
+                    Center(
+                      child: Lottie.asset(
+                          'assets/animation/fail.json',
+                          backgroundLoading: true,
+                          fit: BoxFit.cover
+                        // height: 10.0,
+                        // width: 20.0,
+                      ),
+                    )
+                  ],
                 );
               },
             );
@@ -177,5 +210,11 @@ class _ResetPasswordState extends State<ResetPassword> {
         },
       ),
     );
+  }
+
+  bool c() {
+    var password = passwordController.text;
+    var confirm=confirmPasswordController.text;
+    return password.length>7&&confirm.length>7;
   }
 }
