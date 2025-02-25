@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/config/theme/di/di.dart';
@@ -10,8 +11,10 @@ import 'core/local/prefs_helper.dart';
 import 'core/utils/routing/routes_manager.dart';
 
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await PrefsHelper.init();
+  await EasyLocalization.ensureInitialized();
   configureDependencies();
   runApp(const MyApp());
 }

@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
-import 'package:online_exam/domain/common/result.dart';
-
+import '../../../../core/utils/result.dart';
 import '../../../../domain/repo/auth_repo/auth_repo.dart';
 import '../../../dataSources/datasource_contract/auth_datasource/auth_datasource.dart';
 import '../../../models/Auth/AuthResponse.dart';
+import '../../../models/signup_input_model/SignUpModel.dart';
 
 
 @Injectable(as : AuthRepo)
@@ -14,21 +14,14 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl(this.apiDataSource);
 
   @override
-  Future<Result<AuthResponse>> SingUp(
-      {required String userName, required String firstName, required String lastName, required String email, required String password, required String confirmPassword, required String phone}) async {
-    var result = await apiDataSource.SingUp(userName: userName,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-        phone: phone);
+  Future<Result<AuthResponse>> SingUp(SignUpModel signupModel) async {
+    var result = await apiDataSource.SingUp(signupModel);
     switch (result) {
       case Success():
         {
           return result;
         }
-      case Error():
+      case Err():
         {
           return result;
         }
@@ -44,7 +37,7 @@ class AuthRepoImpl extends AuthRepo {
         {
           return result;
         }
-      case Error():
+      case Err():
         {
           return result;
         }

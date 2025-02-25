@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:online_exam/domain/common/result.dart';
-
+import '../../core/utils/result.dart';
 import '../repo/auth_repo/auth_repo.dart';
 
 @injectable

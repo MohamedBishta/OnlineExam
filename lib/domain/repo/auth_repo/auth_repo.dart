@@ -1,7 +1,8 @@
-import 'package:online_exam/domain/common/result.dart';
+import '../../../core/utils/result.dart';
 import '../../../data/models/Auth/AuthResponse.dart';
+import '../../../data/models/signup_input_model/SignUpModel.dart';
 
 abstract class AuthRepo{
-  Future<Result<AuthResponse>> SingUp({required String userName, required String firstName, required String lastName, required String email, required String password, required String confirmPassword, required String phone});
+  Future<Result<AuthResponse>> SingUp(SignUpModel signupModel);
   Future<Result<AuthResponse>> SingIn({required String email, required String password});
 }

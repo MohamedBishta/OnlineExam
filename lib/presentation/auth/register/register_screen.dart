@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:online_exam/presentation/auth/register/view_model/signup_view_model.dart';
+import 'package:online_exam/data/models/signup_input_model/SignUpModel.dart';
+import 'package:online_exam/presentation/auth/view_model/auth_view_model.dart';
 import '../../../config/theme/di/di.dart';
 import '../../../core/constants.dart';
 import '../../../core/reusable_components/custom_button.dart';
@@ -65,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<SignUpViewModel>(),
+      create: (context) => getIt<AuthViewModel>(),
       child: Scaffold(
         appBar: AppBar(),
         body: SingleChildScrollView(
@@ -223,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 48.h,
                   ),
-                  BlocConsumer<SignUpViewModel, SignUpStates>(
+                  BlocConsumer<AuthViewModel, AuthStates>(
                     builder: (BuildContext context, state) {
                       if (state is SignUpLoadingState) {
                         return Center(
@@ -236,14 +237,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         title: StringsManager.signUp,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            SignUpViewModel.get(context).SignUp(
-                                userName: userNameController.text,
+                            AuthViewModel.get(context).SignUp(SignUpModel(
+                                username: userNameController.text,
                                 firstName: firstNameController.text,
                                 lastName: lastNameController.text,
                                 email: emailController.text,
                                 password: passController.text,
-                                confirmPassword: confirmPassController.text,
-                                phone: phoneController.text);
+                                rePassword: confirmPassController.text,
+                                phone: phoneController.text));
                           }
                         },
                       );
@@ -251,7 +252,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     listener: (BuildContext context, state) {
                       if (state is SignUpErrorState) {
                         Fluttertoast.showToast(
-                            msg: state.error,
+                            msg: state.error.toString(),
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                             timeInSecForIosWeb: 1,
