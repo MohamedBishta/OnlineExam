@@ -9,13 +9,13 @@ import 'package:online_exam/core/utils/result.dart';
 import 'forget_password_datasource.dart';
 
 @Injectable(as: ForgetPasswordOnlineDataSource)
-class ForgetPasswordOnlineDataSourceImpl
-    implements ForgetPasswordOnlineDataSource {
+class ForgetPasswordOnlineDataSourceImpl implements ForgetPasswordOnlineDataSource {
   ApiManager apiClient;
   ForgetPasswordOnlineDataSourceImpl(this.apiClient);
   @override
   Future<Result<String>> forgetPassword(String email) async {
-    return apiExecutor<String>(() async {
+    return apiExecutor<String>(
+      () async {
         final data = {
           'email': email,
         };
@@ -23,15 +23,12 @@ class ForgetPasswordOnlineDataSourceImpl
           endPoint: EndPoints.forgetPasswordEmailVerification,
           body: data,
         );
-        if(response.statusCode==200){
+        if (response.statusCode == 200) {
           return jsonEncode(response.data['status']);
-        }else{
+        } else {
           throw Exception(jsonEncode(response.data["code"]));
         }
-
       },
-
     );
-
   }
 }

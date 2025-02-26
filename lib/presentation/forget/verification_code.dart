@@ -16,7 +16,7 @@ import '../../core/reusable_components/custom_form_field.dart';
 import 'cubit/foget_password_cubit.dart';
 
 class EmailVerification extends StatefulWidget {
-   EmailVerification({super.key});
+  EmailVerification({super.key});
 
   @override
   State<EmailVerification> createState() => _EmailVerificationState();
@@ -26,13 +26,13 @@ class _EmailVerificationState extends State<EmailVerification> {
   TextEditingController emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   HomeViewModel homeViewModel = getIt.get<HomeViewModel>();
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
-  @override
 
+  @override
   Widget build(BuildContext context) {
     final email = ModalRoute.of(context)!.settings.arguments as String;
     return BlocProvider(
@@ -61,19 +61,14 @@ class _EmailVerificationState extends State<EmailVerification> {
                               size: 20.sp,
                             ),
                           ),
-                          Text(StringsManager.passwordTitle,
-                              style:
-                                  Theme.of(context).textTheme.headlineMedium),
+                          Text(StringsManager.passwordTitle, style: Theme.of(context).textTheme.headlineMedium),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(StringsManager.emailVerificationTitle,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium
-                                  ?.copyWith(fontSize: 18.sp)),
+                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 18.sp)),
                         ],
                       ),
                       Row(
@@ -81,10 +76,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         children: <Widget>[
                           Text(StringsManager.emailVerificationText,
                               textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(fontSize: 14.sp))
+                              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 14.sp))
                         ],
                       ),
                       Center(
@@ -111,23 +103,18 @@ class _EmailVerificationState extends State<EmailVerification> {
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall
-                                  ?.copyWith(
-                                      fontSize: 16.sp,
-                                      color: ColorsManager.headTheme)),
+                                  ?.copyWith(fontSize: 16.sp, color: ColorsManager.headTheme)),
                           InkWell(
-                            onTap: (){
-                                     homeViewModel.onIntent(OtpResndIntent(email));
+                            onTap: () {
+                              homeViewModel.onIntent(OtpResndIntent(email));
                             },
                             child: Text(StringsManager.otpResendText,
                                 textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                        fontSize: 16.sp,
-                                        color: ColorsManager.babyBlue,
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: ColorsManager.babyBlue)),
+                                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    fontSize: 16.sp,
+                                    color: ColorsManager.babyBlue,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: ColorsManager.babyBlue)),
                           )
                         ],
                       ),
@@ -155,7 +142,7 @@ class _EmailVerificationState extends State<EmailVerification> {
             );
             Future.delayed(Duration(seconds: 2), () {
               Navigator.pop(context);
-              Navigator.pushNamed(context,'/changePassword',arguments:email);
+              Navigator.pushNamed(context, '/changePassword', arguments: email);
             });
           } else if (state is ForgetPasswordFailure) {
             Navigator.pop(context);
@@ -166,13 +153,10 @@ class _EmailVerificationState extends State<EmailVerification> {
                 return AlertDialog(
                   actions: <Widget>[
                     Center(
-                      child: Lottie.asset(
-                          'assets/animation/fail.json',
-                          backgroundLoading: true,
-                          fit: BoxFit.cover
-                        // height: 10.0,
-                        // width: 20.0,
-                      ),
+                      child: Lottie.asset('assets/animation/fail.json', backgroundLoading: true, fit: BoxFit.cover
+                          // height: 10.0,
+                          // width: 20.0,
+                          ),
                     )
                   ],
                 );
@@ -190,7 +174,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                 );
               },
             );
-          }else if(state is OtpResendSuccess){
+          } else if (state is OtpResendSuccess) {
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -199,7 +183,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                 duration: Duration(seconds: 2),
               ),
             );
-
           }
         },
       ),

@@ -6,5 +6,4 @@ class GetProfileUsecase {
   final ProfileRepo profileRepo;
   GetProfileUsecase(this.profileRepo);
   call() => profileRepo.getProfile();
-  
 }

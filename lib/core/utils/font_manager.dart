@@ -8,6 +8,7 @@ class FontWeightManager {
   static const FontWeight semiBold = FontWeight.w600;
   static const FontWeight extraBold = FontWeight.w800;
 }
+
 class FontSizes {
   static const double s12 = 12.0;
   static const double s14 = 14.0;

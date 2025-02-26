@@ -14,9 +14,8 @@ class NewPasswordDataOnlineSourceImpl implements NewPasswordDataOnlineSource {
   Future<Result<String>> newPassword(String email, String password) {
     return apiExecutor(
       () async {
-        final data = {'email': email,'newPassword': password};
-        var response =
-            await apiClient.put(endPoint: EndPoints.resetPassword, body: data);
+        final data = {'email': email, 'newPassword': password};
+        var response = await apiClient.put(endPoint: EndPoints.resetPassword, body: data);
         print('Response:$response');
         if (response.statusCode == 200) {
           return response.data['message'];
@@ -26,6 +25,4 @@ class NewPasswordDataOnlineSourceImpl implements NewPasswordDataOnlineSource {
       },
     );
   }
-
-
 }

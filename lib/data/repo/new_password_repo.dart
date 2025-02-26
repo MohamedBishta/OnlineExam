@@ -2,7 +2,8 @@ import 'package:injectable/injectable.dart';
 import 'package:online_exam/data/dataSources/remoteDataSource/new_password_datasource.dart';
 import 'package:online_exam/domain/repo/new_password_repo.dart';
 import '../../core/utils/result.dart';
-@Injectable(as:NewPasswordRepo)
+
+@Injectable(as: NewPasswordRepo)
 class NewPasswordRepoImpl implements NewPasswordRepo {
   NewPasswordDataOnlineSource newPasswordDataOnlineSource;
   NewPasswordRepoImpl(this.newPasswordDataOnlineSource);

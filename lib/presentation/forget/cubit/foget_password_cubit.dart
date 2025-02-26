@@ -11,8 +11,7 @@ class HomeViewModel extends Cubit<ForgetPasswordState> {
   ForgetPasswordUseCase forgetPasswordUseCase;
   OtpCodeUseCase otpCodeUseCase;
   NewPasswordUseCase newPasswordUseCase;
-  HomeViewModel(
-      this.forgetPasswordUseCase, this.otpCodeUseCase, this.newPasswordUseCase)
+  HomeViewModel(this.forgetPasswordUseCase, this.otpCodeUseCase, this.newPasswordUseCase)
       : super(ForgetPasswordInitial());
 
   void onIntent(ForgetIntent intent) {
@@ -41,8 +40,7 @@ class HomeViewModel extends Cubit<ForgetPasswordState> {
       if (forgetPasssword is Err) {
         var error = (forgetPasssword as Err).ex;
         if (error.toString().contains('404')) {
-          emit(ForgetPasswordFailure(
-              'The email address you entered is not valid. Please check and try again.'));
+          emit(ForgetPasswordFailure('The email address you entered is not valid. Please check and try again.'));
         } else {
           emit(ForgetPasswordFailure(error.toString()));
         }
@@ -62,8 +60,7 @@ class HomeViewModel extends Cubit<ForgetPasswordState> {
       if (forgetPasssword is Err) {
         var error = (forgetPasssword as Err).ex;
         if (error.toString().contains('404')) {
-          emit(ForgetPasswordFailure(
-              'The email address you entered is not valid. Please check and try again.'));
+          emit(ForgetPasswordFailure('The email address you entered is not valid. Please check and try again.'));
         } else {
           emit(ForgetPasswordFailure(error.toString()));
         }
@@ -76,8 +73,6 @@ class HomeViewModel extends Cubit<ForgetPasswordState> {
     }
   }
 
-
-
   Future<void> _handleOtpCode(String code) async {
     try {
       emit(ForgetPasswordLoading());
@@ -85,7 +80,6 @@ class HomeViewModel extends Cubit<ForgetPasswordState> {
       if (OtpCode is Err) {
         var error = (OtpCode as Err).ex;
         if (error.toString().contains('400')) {
-
           emit(ForgetPasswordFailure('Reset code is invalid or has expired'));
         } else {
           emit(ForgetPasswordFailure(error.toString()));

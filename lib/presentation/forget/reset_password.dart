@@ -23,7 +23,7 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  bool check=false;
+  bool check = false;
   final _formKey = GlobalKey<FormState>();
   HomeViewModel homeViewModel = getIt.get<HomeViewModel>();
   @override
@@ -63,19 +63,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 size: 20.sp,
                               ),
                             ),
-                            Text(StringsManager.passwordTitle,
-                                style:
-                                    Theme.of(context).textTheme.headlineMedium),
+                            Text(StringsManager.passwordTitle, style: Theme.of(context).textTheme.headlineMedium),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(StringsManager.resetPasswordTitle,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium
-                                    ?.copyWith(fontSize: 18.sp)),
+                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 18.sp)),
                           ],
                         ),
                         Row(
@@ -83,17 +78,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                           children: <Widget>[
                             Text(StringsManager.resetPasswordText,
                                 textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontSize: 14.sp))
+                                style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 14.sp))
                           ],
                         ),
                         CustomFormField(
                           IsEnable: (p0) {
-                                 setState(() {
-                                   c();
-                                 });
+                            setState(() {
+                              c();
+                            });
                           },
                           title: StringsManager.newPasswordTitle,
                           hintText: StringsManager.passwordHint,
@@ -109,9 +101,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ),
                         CustomFormField(
                           IsEnable: (p0) {
-                             setState(() {
-                               c();
-                             });
+                            setState(() {
+                              c();
+                            });
                           },
                           title: StringsManager.confirmPasswordTitle,
                           hintText: StringsManager.confirmPasswordHint,
@@ -130,16 +122,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                           isEnable: c(),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              if (confirmPasswordController.text ==
-                                  passwordController.text) {
-                                homeViewModel.onIntent(NewPasswordIntent(
-                                    email,
-                                    confirmPasswordController.text));
+                              if (confirmPasswordController.text == passwordController.text) {
+                                homeViewModel.onIntent(NewPasswordIntent(email, confirmPasswordController.text));
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text('check your password again'),
-                                      backgroundColor: Colors.red),
+                                  SnackBar(content: Text('check your password again'), backgroundColor: Colors.red),
                                 );
                               }
                             }
@@ -153,7 +140,6 @@ class _ResetPasswordState extends State<ResetPassword> {
               ),
             ),
           );
-
         },
         listener: (context, state) {
           if (state is ForgetPasswordSuccess) {
@@ -182,13 +168,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                 return AlertDialog(
                   actions: <Widget>[
                     Center(
-                      child: Lottie.asset(
-                          'assets/animation/fail.json',
-                          backgroundLoading: true,
-                          fit: BoxFit.cover
-                        // height: 10.0,
-                        // width: 20.0,
-                      ),
+                      child: Lottie.asset('assets/animation/fail.json', backgroundLoading: true, fit: BoxFit.cover
+                          // height: 10.0,
+                          // width: 20.0,
+                          ),
                     )
                   ],
                 );
@@ -214,7 +197,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   bool c() {
     var password = passwordController.text;
-    var confirm=confirmPasswordController.text;
-    return password.length>7&&confirm.length>7;
+    var confirm = confirmPasswordController.text;
+    return password.length > 7 && confirm.length > 7;
   }
 }

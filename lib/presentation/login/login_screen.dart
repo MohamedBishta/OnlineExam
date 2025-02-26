@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController emailController;
   late TextEditingController passController;
   bool checkBoxClick = false;
-  bool check=false;
+  bool check = false;
   bool visable = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
@@ -67,17 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 24.h,
                 ),
                 CustomFormField(
-                  IsEnable: (p0) {
-
-                  },
+                  IsEnable: (p0) {},
                   title: StringsManager.emailTitle,
                   hintText: StringsManager.emailHint,
                   keyboardType: TextInputType.emailAddress,
                   controller: emailController,
                   validation: (email) {
-                    if (email == null ||
-                        email.trim().isEmpty ||
-                        !Constants.emailRegex.hasMatch(email)) {
+                    if (email == null || email.trim().isEmpty || !Constants.emailRegex.hasMatch(email)) {
                       return StringsManager.thisEmailIsNotValid;
                     }
                   },
@@ -86,9 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 24.h,
                 ),
                 CustomFormField(
-                   IsEnable: (p0) {
-
-                   },
+                  IsEnable: (p0) {},
                   title: StringsManager.passwordTitle,
                   obscure: visable,
                   hintText: StringsManager.passwordHint,
@@ -119,23 +113,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Text(
                       StringsManager.rememberMe,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall
-                          ?.copyWith(fontSize: 13.sp),
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13.sp),
                     ),
                     Spacer(),
                     InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context,'/forget');
-
+                          Navigator.pushNamed(context, '/forget');
                         },
                         child: Text(StringsManager.forgotPass,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                    decoration: TextDecoration.underline)))
+                            style:
+                                Theme.of(context).textTheme.titleSmall?.copyWith(decoration: TextDecoration.underline)))
                   ],
                 ),
                 SizedBox(
@@ -155,17 +142,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, RoutesManager.registerRoteName);
+                    Navigator.pushReplacementNamed(context, RoutesManager.registerRoteName);
                   },
                   child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Text(
                         StringsManager.dontHaveAccount,
                         style: TextStyle(
-                            decorationColor: Colors.blue,
-                            decoration: TextDecoration.underline,
-                            color: Colors.blue),
+                            decorationColor: Colors.blue, decoration: TextDecoration.underline, color: Colors.blue),
                       )),
                 )
               ],

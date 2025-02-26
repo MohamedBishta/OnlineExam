@@ -18,8 +18,7 @@ class OtpCodeDataOnlineSourceImpl implements OtpCodeDataOnlineSource {
         final data = {
           'resetCode': code,
         };
-        var response =
-            await apiClient.post(endPoint: EndPoints.resetCode, body: data);
+        var response = await apiClient.post(endPoint: EndPoints.resetCode, body: data);
         if (response.statusCode == 200) {
           return jsonEncode(response.data['message']);
         } else {

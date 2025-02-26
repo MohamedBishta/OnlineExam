@@ -14,12 +14,27 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   configureDependencies();
-  runApp(EasyLocalization(
-    supportedLocales: const [Locale('en')], // Supported locales
-    path: 'assets/translations', // Path to translations folder
-    fallbackLocale: const Locale('en'), // Fallback locale
-    child: MyApp(),
-  ),);
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en')], // Supported locales
+      path: 'assets/translations', // Path to translations folder
+      fallbackLocale: const Locale('en'), // Fallback locale
+      child: RootApp(),
+    ),
+  );
+}
+
+class RootApp extends StatelessWidget {
+  const RootApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      builder: (_, __) => const MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -28,26 +43,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(375,812),
-      minTextAdapt: true,
-      builder: (context, child) => MaterialApp(
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: MyTheme.lightTheme,
-        initialRoute: RoutesManager.loginRouteName,
-        routes: {
-          RoutesManager.loginRouteName : (_)=> LoginScreen(),
-          RoutesManager.registerRoteName : (_)=> RegisterScreen(),
-          RoutesManager.forgetRouteName:(_)=>ForgetPassword(),
-          RoutesManager.otpRouteName:(_)=>EmailVerification(),
-          RoutesManager.changePasswordRouteName:(_)=>ResetPassword()
-
-        },
-      ),
+    return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      theme: MyTheme.lightTheme,
+      initialRoute: RoutesManager.loginRouteName,
+      routes: {
+        RoutesManager.loginRouteName: (_) => LoginScreen(),
+        RoutesManager.registerRoteName: (_) => RegisterScreen(),
+        RoutesManager.forgetRouteName: (_) => ForgetPassword(),
+        RoutesManager.otpRouteName: (_) => EmailVerification(),
+        RoutesManager.changePasswordRouteName: (_) => ResetPassword()
+      },
     );
   }
 }

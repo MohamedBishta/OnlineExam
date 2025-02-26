@@ -30,11 +30,9 @@ Exception _handleDioException(DioException dioEx) {
       if (dioEx.response?.statusCode != null &&
           dioEx.response!.statusCode! >= 400 &&
           dioEx.response!.statusCode! < 500) {
-        return ClientError(
-            'Client error: ${dioEx.response?.statusCode} - ${dioEx.response?.statusMessage}');
+        return ClientError('Client error: ${dioEx.response?.statusCode} - ${dioEx.response?.statusMessage}');
       } else {
-        return ServerError(
-            'Server error: ${dioEx.response?.statusCode} - ${dioEx.response?.statusMessage}');
+        return ServerError('Server error: ${dioEx.response?.statusCode} - ${dioEx.response?.statusMessage}');
       }
 
     // Server-related errors (5xx status codes)

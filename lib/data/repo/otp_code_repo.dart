@@ -3,8 +3,8 @@ import 'package:online_exam/data/dataSources/remoteDataSource/otp_code_datasourc
 import 'package:online_exam/domain/repo/otp_code_repo.dart';
 import '../../core/utils/result.dart';
 
-@Injectable(as:OtpCodeRepo)
-class OtpCodeRepoImpl implements OtpCodeRepo{
+@Injectable(as: OtpCodeRepo)
+class OtpCodeRepoImpl implements OtpCodeRepo {
   OtpCodeDataOnlineSource otpCodeDataOnlineSource;
   OtpCodeRepoImpl(this.otpCodeDataOnlineSource);
   @override

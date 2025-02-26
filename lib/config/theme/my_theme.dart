@@ -25,13 +25,10 @@ class MyTheme {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4.r),
       ),
-      focusedBorder:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
-      enabledBorder:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
       errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
-      focusedErrorBorder:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
+      focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
       hintStyle: _textTheme.titleSmall?.copyWith(
         fontSize: 14.sp,
       ),
@@ -60,7 +57,6 @@ class MyTheme {
     ),
 
     /////////////////////////////////AppBarTheme//////////////////////////////////////////
-
 
     appBarTheme: AppBarTheme(
       color: Colors.transparent,

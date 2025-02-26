@@ -1,3 +1,1 @@
-class AssetsManager{
-
-}
+class AssetsManager {}

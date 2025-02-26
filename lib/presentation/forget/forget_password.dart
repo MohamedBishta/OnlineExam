@@ -21,7 +21,7 @@ class ForgetPassword extends StatefulWidget {
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   final TextEditingController emailController = TextEditingController();
-  bool check=false;
+  bool check = false;
   final _formKey = GlobalKey<FormState>();
   HomeViewModel homeViewModel = getIt.get<HomeViewModel>();
   @override
@@ -46,7 +46,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             );
             Future.delayed(Duration(seconds: 2), () {
               Navigator.pop(context);
-              Navigator.pushNamed(context,'/otp',arguments: emailController.text);
+              Navigator.pushNamed(context, '/otp', arguments: emailController.text);
             });
           } else if (state is ForgetPasswordFailure) {
             Navigator.pop(context);
@@ -57,13 +57,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 return AlertDialog(
                   actions: <Widget>[
                     Center(
-                      child: Lottie.asset(
-                        'assets/animation/fail.json',
-                        backgroundLoading: true,
-                        fit: BoxFit.cover
-                        // height: 10.0,
-                        // width: 20.0,
-                      ),
+                      child: Lottie.asset('assets/animation/fail.json', backgroundLoading: true, fit: BoxFit.cover
+                          // height: 10.0,
+                          // width: 20.0,
+                          ),
                     )
                   ],
                 );
@@ -110,10 +107,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       Center(
                         child: Text(
                           StringsManager.forgetPasswordTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(fontSize: 18.sp),
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 18.sp),
                         ),
                       ),
                       SizedBox(height: 10.h),
@@ -121,10 +115,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         child: Text(
                           StringsManager.forgetPasswordText,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(fontSize: 14.sp),
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 14.sp),
                         ),
                       ),
                       SizedBox(height: 20.h),
@@ -139,11 +130,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             return StringsManager.thisEmailIsNotValid;
                           }
                           return null;
-
                         },
                         IsEnable: (p0) {
                           setState(() {
-                              c();
+                            c();
                           });
                         },
                       ),
@@ -153,8 +143,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         isEnable: c(),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            homeViewModel.onIntent(ForgotPasswordIntent(
-                                emailController.text.trim()));
+                            homeViewModel.onIntent(ForgotPasswordIntent(emailController.text.trim()));
                           }
                         },
                       ),
@@ -173,6 +162,4 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     var email = emailController.text;
     return email.isNotEmpty && Constants.emailRegex.hasMatch(email);
   }
-
-
 }

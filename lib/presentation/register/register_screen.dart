@@ -24,7 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController phoneController;
   bool visable = true;
   bool confvisable = true;
-  bool check=false;
+  bool check = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -81,9 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 24.h,
                 ),
                 CustomFormField(
-                  IsEnable: (p0) {
-
-                  },
+                  IsEnable: (p0) {},
                   title: StringsManager.userNameTitle,
                   hintText: StringsManager.userNameHint,
                   controller: userNameController,
@@ -100,9 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Expanded(
                       child: CustomFormField(
-                        IsEnable: (p0) {
-
-                        },
+                        IsEnable: (p0) {},
                         title: StringsManager.firstNameTitle,
                         hintText: StringsManager.firstNameHint,
                         controller: firstNameController,
@@ -118,9 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                       child: CustomFormField(
-                        IsEnable: (p0) {
-
-                        },
+                        IsEnable: (p0) {},
                         title: StringsManager.lastNameTitle,
                         hintText: StringsManager.lastNameHint,
                         controller: lastNameController,
@@ -137,17 +131,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 24.h,
                 ),
                 CustomFormField(
-                  IsEnable: (p0) {
-
-                  },
+                  IsEnable: (p0) {},
                   title: StringsManager.emailTitle,
                   hintText: StringsManager.emailHint,
                   keyboardType: TextInputType.emailAddress,
                   controller: emailController,
                   validation: (email) {
-                    if (email == null ||
-                        email.trim().isEmpty ||
-                        !Constants.emailRegex.hasMatch(email)) {
+                    if (email == null || email.trim().isEmpty || !Constants.emailRegex.hasMatch(email)) {
                       return StringsManager.thisEmailIsNotValid;
                     }
                   },
@@ -159,9 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Expanded(
                       child: CustomFormField(
-                        IsEnable: (p0) {
-
-                        },
+                        IsEnable: (p0) {},
                         title: StringsManager.passwordTitle,
                         obscure: visable,
                         hintText: StringsManager.passwordHint,
@@ -186,23 +174,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                       child: CustomFormField(
-                        IsEnable: (p0) {
-
-                        },
+                        IsEnable: (p0) {},
                         title: StringsManager.confirmPasswordTitle,
                         obscure: confvisable,
                         hintText: StringsManager.confirmPasswordHint,
                         controller: confirmPassController,
                         validation: (confpass) {
-                          if (confpass == null ||
-                              confpass.trim().isEmpty ||
-                              confpass != passController.text) {
+                          if (confpass == null || confpass.trim().isEmpty || confpass != passController.text) {
                             return StringsManager.confPassNotMatch;
                           }
                         },
-                        icon: confvisable
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                        icon: confvisable ? Icons.visibility_off : Icons.visibility,
                         onIconTap: () {
                           confvisable = !confvisable;
                           setState(() {});
@@ -224,9 +206,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return StringsManager.phoneHint;
                     }
                   },
-                  IsEnable: (p0) {
-
-                  },
+                  IsEnable: (p0) {},
                 ),
                 SizedBox(
                   height: 48.h,
@@ -245,17 +225,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, RoutesManager.loginRouteName);
+                    Navigator.pushReplacementNamed(context, RoutesManager.loginRouteName);
                   },
                   child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Text(
                         StringsManager.alreadyHaveAccount,
                         style: TextStyle(
-                            decorationColor: Colors.blue,
-                            decoration: TextDecoration.underline,
-                            color: Colors.blue),
+                            decorationColor: Colors.blue, decoration: TextDecoration.underline, color: Colors.blue),
                       )),
                 )
               ],

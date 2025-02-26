@@ -16,8 +16,7 @@ class ProfileRemoteDtoImpl extends ProfileRemoteDto {
   @override
   Future<Result<GetProfileDto>> getProfile() async {
     return apiExecutor<GetProfileDto>(() async {
-      var response =
-          await apiManager.get(endPoint: EndPoints.getProfile, headers: {
+      var response = await apiManager.get(endPoint: EndPoints.getProfile, headers: {
         'token': StringsManager.token,
       });
       //print(GetProfileDto.fromJson(response.data).user?.firstName);
