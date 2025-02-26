@@ -10,12 +10,12 @@ class SnackBarUtils {
   }) {
     SnackBar snackBar = SnackBar(
       duration: Duration(seconds: seconds),
-      backgroundColor: ColorsManager.grayColor,
+      backgroundColor: ColorsManager.customGray.shade300,
       content: Text(
         text,
         style: GoogleFonts.poppins(
-            textStyle: const TextStyle(
-                color: ColorsManager.bottomNavBarColor, fontSize: 16)),
+            textStyle:
+                const TextStyle(color: ColorsManager.headTheme, fontSize: 16)),
       ),
     );
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(snackBar);

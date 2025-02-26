@@ -43,6 +43,7 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
             // Navigator.pushReplacementNamed(context, RoutesManager.homeRoteName)
           } else if (state is ProfileErr) {
             SnackBarUtils.showSnackBar(context: context, text: state.errMsg);
+            Navigator.popUntil(context, (route) => route.isFirst);
           } else if (state is ProfileLoading) {
             showDialog(
                 context: context,
@@ -130,6 +131,7 @@ class _EditeProfileTabState extends State<EditeProfileTab> {
                   children: [
                     Expanded(
                         child: CustomButton(
+                            isEnable: true,
                             title: StringsManager.update,
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {

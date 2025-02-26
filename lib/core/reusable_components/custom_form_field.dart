@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomFormField extends StatelessWidget {
-  const CustomFormField({
-    super.key,
-    required this.title,
-    required this.hintText,
-    this.maxLine,
-    this.obscure = false,
-    this.keyboardType,
-    this.suffixIcon,
-    required this.controller,
-    this.validation,
-    this.enable,
-    this.icon,
-    this.onIconTap,
-  });
+class CustomFormField extends StatefulWidget {
+  const CustomFormField(
+      {super.key,
+      required this.title,
+      required this.hintText,
+      this.maxLine,
+      this.obscure = false,
+      this.keyboardType,
+      this.suffixIcon,
+      required this.controller,
+      this.validation,
+      this.enable,
+      this.icon,
+      this.onIconTap,
+      this.isEnable});
 
   final TextEditingController controller;
   final int? maxLine;
@@ -26,20 +26,30 @@ class CustomFormField extends StatelessWidget {
   final String title;
   final Widget? suffixIcon;
   final bool? enable;
-
+  final bool? isEnable;
   final IconData? icon;
   final void Function()? onIconTap;
+
+  @override
+  State<CustomFormField> createState() => _CustomFormFieldState();
+}
+
+class _CustomFormFieldState extends State<CustomFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-    
-      enabled: enable ?? true,
-      controller: controller,
+      onChanged: (value) {
+        widget.isEnable;
+        setState(() {});
+      },
+      enabled: widget.enable ?? true,
+      controller: widget.controller,
       style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 16),
-      maxLines: maxLine ?? 1,
-      obscureText: obscure,
-      keyboardType: keyboardType,
-      validator: validation,
+      maxLines: widget.maxLine ?? 1,
+      obscuringCharacter: '*',
+      obscureText: widget.obscure,
+      keyboardType: widget.keyboardType,
+      validator: widget.validation,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.r),
@@ -49,15 +59,17 @@ class CustomFormField extends StatelessWidget {
         enabledBorder:
             OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
         enabled: true,
-        errorBorder:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.circular(4.r),
+        ),
         focusedErrorBorder:
             OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
         hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontSize: 14.sp,
             ),
-        hintText: hintText,
-        labelText: title,
+        hintText: widget.hintText,
+        labelText: widget.title,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelStyle: WidgetStateTextStyle.resolveWith((states) {
           if (states.contains(WidgetState.error)) {
@@ -68,7 +80,7 @@ class CustomFormField extends StatelessWidget {
                   ) ??
               TextStyle();
         }),
-        suffixIcon: suffixIcon,
+        suffixIcon: widget.suffixIcon,
         fillColor: Colors.white,
         filled: true,
       ),

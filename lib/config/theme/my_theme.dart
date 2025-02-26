@@ -3,29 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/core/utils/colors_manager.dart';
 
 class MyTheme {
-  static ThemeData lightTheme = ThemeData(
+  static final TextTheme _textTheme = TextTheme(
+    headlineMedium: TextStyle(
+      fontSize: 20.sp,
+      fontWeight: FontWeight.w500,
+      color: ColorsManager.headTheme,
+    ),
+    titleSmall: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 12.sp,
+      color: ColorsManager.textTheme,
+    ),
+  );
+
+  static final ThemeData lightTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(seedColor: ColorsManager.primaryColor),
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme: AppBarTheme(
-        color: Colors.transparent,
-        elevation: 0.0,
-        scrolledUnderElevation: 0,
-        shadowColor: Colors.transparent,
-        toolbarHeight: 48.h),
-    textTheme: TextTheme(
-      headlineMedium: TextStyle(
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w500,
-          color: ColorsManager.headTheme),
-      titleSmall: TextStyle(
-          fontWeight: FontWeight.w400,
-          fontSize: 12.sp,
-          color: ColorsManager.textTheme),
-    ),
-    useMaterial3: true,
-  );
-}
-
 
     /////////////////////////////////TextFromFieldDecoration///////////////////////////////////
     inputDecorationTheme: InputDecorationTheme(
@@ -39,32 +32,46 @@ class MyTheme {
       errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
       focusedErrorBorder:
           OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
-      hintStyle: lightTheme.textTheme.titleSmall?.copyWith(
+      hintStyle: _textTheme.titleSmall?.copyWith(
         fontSize: 14.sp,
       ),
       floatingLabelAlignment: FloatingLabelAlignment.start,
       floatingLabelBehavior: FloatingLabelBehavior.always,
-      labelStyle: lightTheme.textTheme.titleSmall,
+      labelStyle: _textTheme.titleSmall,
       fillColor: Colors.white,
       filled: true,
     ),
 
+    /////////////////////////////////ElevatedButtonTheme///////////////////////////////////
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-          padding: REdgeInsets.all(14),
-          backgroundColor: ColorsManager.primaryColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100.r)),
-          textStyle: lightTheme.textTheme.headlineMedium
-              ?.copyWith(fontSize: 16.sp, color: Colors.white)),
+        foregroundColor: Colors.white,
+        padding: REdgeInsets.all(14),
+        backgroundColor: ColorsManager.primaryColor,
+        disabledBackgroundColor: Colors.grey,
+        disabledForegroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100.r),
+        ),
+        textStyle: _textTheme.headlineMedium!.copyWith(
+          fontSize: 16.sp,
+        ),
+      ),
     ),
 
-
     /////////////////////////////////AppBarTheme//////////////////////////////////////////
-        color: Colors.transparent,
-        elevation: 0.0,
-        scrolledUnderElevation: 0,
-        shadowColor: Colors.transparent,
-        toolbarHeight: 48.h),
+    appBarTheme: AppBarTheme(
+      color: Colors.transparent,
+      elevation: 0.0,
+      scrolledUnderElevation: 0,
+      shadowColor: Colors.transparent,
+      toolbarHeight: 48.h,
+    ),
 
     ////////////////////////////////TextTheme/////////////////////////////////////////////
+    textTheme: _textTheme,
+
+    useMaterial3: true,
+  );
+}
+////////////////////////////////TextTheme/////////////////////////////////////////////

@@ -35,7 +35,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   GetProfileEntity? profileData;
 
-  void processIntent(ProfileIntent intent) {
+  dynamic processIntent(ProfileIntent intent) {
     switch (intent) {
       case GetProfileIntent():
         _getProfileData();
@@ -46,7 +46,15 @@ class ProfileCubit extends Cubit<ProfileState> {
       case ChangePasswordIntent():
         _changePassword(intent.changePasswordInputModel);
         break;
+      case CheckButtonEnableIntent():
+        return _checkButtonEnable(intent.controller, newPass: intent.newPass);
     }
+  }
+
+  bool _checkButtonEnable(controller, {TextEditingController? newPass}) {
+    var field = controller.text;
+    emit(ProfileEnable());
+    return field.isNotEmpty && field.length >= 8 && field == newPass?.text;
   }
 
   void _getProfileData() async {
@@ -105,6 +113,12 @@ class ProfileCubit extends Cubit<ProfileState> {
 sealed class ProfileIntent {}
 
 class GetProfileIntent extends ProfileIntent {}
+
+class CheckButtonEnableIntent extends ProfileIntent {
+  final TextEditingController controller;
+  final TextEditingController? newPass;
+  CheckButtonEnableIntent(this.controller, {this.newPass});
+}
 
 class EditeProfileIntent extends ProfileIntent {
   final EditeProfileInputModel editeProfileInputModel;

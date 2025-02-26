@@ -22,10 +22,11 @@ class ProfileRemoteDtoImpl implements ProfileRemoteDto {
       var response = await apiManager.get(
         endPoint: EndPoints.getProfile,
       );
+
       if (response.statusCode == 200) {
         return GetProfileDto.fromJson(response.data);
       } else {
-        throw Exception(response.data['message']);
+        throw Exception(GetProfileDto.fromJson(response.data).message);
       }
     });
   }

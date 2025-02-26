@@ -5,6 +5,7 @@ import 'package:online_exam/presentation/home/tabs/explore/explore_tab.dart';
 import 'package:online_exam/presentation/home/tabs/profile/profile_tab.dart';
 import 'package:online_exam/presentation/home/tabs/result/result_tab.dart';
 
+import '../../core/utils/assets_manager.dart';
 import '../../core/utils/strings_manager.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: NavigationBar(
         animationDuration: Duration(seconds: 0),
-        // backgroundColor: ColorsManager.primaryColor,
         overlayColor: WidgetStateProperty.resolveWith<Color?>(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.pressed)) {
@@ -52,14 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
             return null; // Default (no overlay)
           },
         ),
-
         height: 60.h,
         onDestinationSelected: (int index) {
           setState(() {
             selectedIndex = index;
           });
         },
-
         indicatorColor: const Color(0xffCCD7EB),
         selectedIndex: selectedIndex,
         destinations: const <Widget>[
@@ -69,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: ImageIcon(AssetImage('assets/icons/result_icon.png')),
+            icon: ImageIcon(AssetImage(AssetsManager.result)),
             label: 'Results',
           ),
           NavigationDestination(

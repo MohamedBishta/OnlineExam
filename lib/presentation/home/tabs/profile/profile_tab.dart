@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_exam/config/theme/di/di.dart';
-import 'package:online_exam/core/reusable_components/custom_button.dart';
 import 'package:online_exam/core/reusable_components/custom_circular_indicator.dart';
 import 'package:online_exam/core/reusable_components/custom_err_icon.dart';
 import 'package:online_exam/core/reusable_components/custom_form_field.dart';
@@ -135,9 +134,11 @@ class _ProfileTabState extends State<ProfileTab> {
               Row(
                 children: [
                   Expanded(
-                      child: CustomButton(
-                          backgroundColor: ColorsManager.grayColor,
-                          title: StringsManager.update,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  ColorsManager.customGray.shade200),
+                          child: Text(StringsManager.update),
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, RoutesManager.editeProfileRoteName,

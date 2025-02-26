@@ -7,9 +7,11 @@ final class ProfileInitial extends ProfileState {}
 
 final class ProfileLoading extends ProfileState {}
 
+final class ProfileEnable extends ProfileState {}
+
 final class ProfileSuccess extends ProfileState {
   final EditeProfileResponseModel? editeProfileResponseModel;
-  final  GetProfileEntity? profileData;
+  final GetProfileEntity? profileData;
   ProfileSuccess({this.profileData, this.editeProfileResponseModel});
 }
 
