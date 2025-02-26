@@ -42,7 +42,6 @@ class MyTheme {
       filled: true,
     ),
 
-    /////////////////////////////////ElevatedButtonTheme///////////////////////////////////
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
@@ -61,12 +60,11 @@ class MyTheme {
 
     /////////////////////////////////AppBarTheme//////////////////////////////////////////
     appBarTheme: AppBarTheme(
-      color: Colors.transparent,
-      elevation: 0.0,
-      scrolledUnderElevation: 0,
-      shadowColor: Colors.transparent,
-      toolbarHeight: 48.h,
-    ),
+        color: Colors.transparent,
+        elevation: 0.0,
+        scrolledUnderElevation: 0,
+        shadowColor: Colors.transparent,
+        toolbarHeight: 48.h),
 
     ////////////////////////////////TextTheme/////////////////////////////////////////////
     textTheme: _textTheme,
@@ -74,4 +72,3 @@ class MyTheme {
     useMaterial3: true,
   );
 }
-////////////////////////////////TextTheme/////////////////////////////////////////////

@@ -24,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController phoneController;
   bool visable = true;
   bool confvisable = true;
+  bool check=false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -80,6 +81,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 24.h,
                 ),
                 CustomFormField(
+                  IsEnable: (p0) {
+
+                  },
                   title: StringsManager.userNameTitle,
                   hintText: StringsManager.userNameHint,
                   controller: userNameController,
@@ -96,6 +100,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Expanded(
                       child: CustomFormField(
+                        IsEnable: (p0) {
+
+                        },
                         title: StringsManager.firstNameTitle,
                         hintText: StringsManager.firstNameHint,
                         controller: firstNameController,
@@ -111,6 +118,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                       child: CustomFormField(
+                        IsEnable: (p0) {
+
+                        },
                         title: StringsManager.lastNameTitle,
                         hintText: StringsManager.lastNameHint,
                         controller: lastNameController,
@@ -127,6 +137,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 24.h,
                 ),
                 CustomFormField(
+                  IsEnable: (p0) {
+
+                  },
                   title: StringsManager.emailTitle,
                   hintText: StringsManager.emailHint,
                   keyboardType: TextInputType.emailAddress,
@@ -146,6 +159,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Expanded(
                       child: CustomFormField(
+                        IsEnable: (p0) {
+
+                        },
                         title: StringsManager.passwordTitle,
                         obscure: visable,
                         hintText: StringsManager.passwordHint,
@@ -170,6 +186,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                       child: CustomFormField(
+                        IsEnable: (p0) {
+
+                        },
                         title: StringsManager.confirmPasswordTitle,
                         obscure: confvisable,
                         hintText: StringsManager.confirmPasswordHint,
@@ -205,11 +224,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return StringsManager.phoneHint;
                     }
                   },
+                  IsEnable: (p0) {
+
+                  },
                 ),
                 SizedBox(
                   height: 48.h,
                 ),
                 CustomButton(
+                  isEnable: check,
                   title: StringsManager.signUp,
                   onPressed: () {
                     if (formKey.currentState?.validate() == false) {

@@ -15,7 +15,8 @@ class CustomFormField extends StatefulWidget {
       this.enable,
       this.icon,
       this.onIconTap,
-      this.isEnable});
+      this.isEnable,
+      this.IsEnable});
 
   final TextEditingController controller;
   final int? maxLine;
@@ -29,6 +30,7 @@ class CustomFormField extends StatefulWidget {
   final bool? isEnable;
   final IconData? icon;
   final void Function()? onIconTap;
+  final String? Function(String?)? IsEnable;
 
   @override
   State<CustomFormField> createState() => _CustomFormFieldState();
@@ -38,10 +40,11 @@ class _CustomFormFieldState extends State<CustomFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: (value) {
-        widget.isEnable;
-        setState(() {});
-      },
+      onChanged: widget.IsEnable ??
+          (value) {
+            widget.isEnable;
+            setState(() {});
+          },
       enabled: widget.enable ?? true,
       controller: widget.controller,
       style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 16),

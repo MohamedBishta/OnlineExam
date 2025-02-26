@@ -5,4 +5,7 @@ class RoutesManager {
   static const String resetPasswordRoteName = '/resetPassword';
   static const String homeRoteName = '/home';
   static const String loadingAboveScreenRoteName = '/loadingAbove';
+  static const String forgetRouteName = '/forget';
+  static const String otpRouteName = '/otp';
+  static const String changePasswordRouteName = '/changePassword';
 }

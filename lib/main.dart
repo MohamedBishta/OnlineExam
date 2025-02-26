@@ -4,15 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/config/theme/my_theme.dart';
-import 'package:online_exam/core/utils/bloc_observer.dart';
-import 'package:online_exam/core/utils/shared_prefrence_manager.dart';
+import 'package:online_exam/presentation/forget/forget_password.dart';
+import 'package:online_exam/presentation/forget/reset_password.dart';
+import 'package:online_exam/presentation/forget/verification_code.dart';
 import 'package:online_exam/presentation/home/home_screen.dart';
 import 'package:online_exam/presentation/home/tabs/profile/edite_profile_tap.dart';
-import 'package:online_exam/presentation/home/tabs/profile/reset_password_view.dart';
+import 'package:online_exam/presentation/home/tabs/profile/reset_password_view.dart'
+    show ResetPasswordView;
 import 'package:online_exam/presentation/login/login_screen.dart';
 import 'package:online_exam/presentation/register/register_screen.dart';
 
+import 'core/utils/bloc_observer.dart';
 import 'core/utils/routing/routes_manager.dart';
+import 'core/utils/shared_prefrence_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,6 +57,9 @@ class MyApp extends StatelessWidget {
           RoutesManager.homeRoteName: (_) => HomeScreen(),
           RoutesManager.editeProfileRoteName: (_) => EditeProfileTab(),
           RoutesManager.resetPasswordRoteName: (_) => ResetPasswordView(),
+          RoutesManager.forgetRouteName: (_) => ForgetPassword(),
+          RoutesManager.otpRouteName: (_) => EmailVerification(),
+          RoutesManager.changePasswordRouteName: (_) => ResetPassword()
         },
       ),
     );
