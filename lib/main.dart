@@ -10,7 +10,7 @@ import 'package:online_exam/presentation/login/login_screen.dart';
 import 'package:online_exam/presentation/register/register_screen.dart';
 import 'core/utils/routing/routes_manager.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   configureDependencies();
