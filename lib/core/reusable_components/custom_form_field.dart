@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomFormField extends StatefulWidget {
+class CustomFormField extends StatelessWidget {
   const CustomFormField(
       {super.key,
       required this.title,
@@ -15,7 +15,6 @@ class CustomFormField extends StatefulWidget {
       this.enable,
       this.icon,
       this.onIconTap,
-      this.isEnable,
       this.IsEnable});
 
   final TextEditingController controller;
@@ -27,32 +26,23 @@ class CustomFormField extends StatefulWidget {
   final String title;
   final Widget? suffixIcon;
   final bool? enable;
-  final bool? isEnable;
+  //final bool? isEnable;
   final IconData? icon;
   final void Function()? onIconTap;
   final String? Function(String?)? IsEnable;
 
   @override
-  State<CustomFormField> createState() => _CustomFormFieldState();
-}
-
-class _CustomFormFieldState extends State<CustomFormField> {
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: widget.IsEnable ??
-          (value) {
-            widget.isEnable;
-            setState(() {});
-          },
-      enabled: widget.enable ?? true,
-      controller: widget.controller,
+      onChanged: IsEnable,
+      enabled: enable ?? true,
+      controller: controller,
       style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 16),
-      maxLines: widget.maxLine ?? 1,
+      maxLines: maxLine ?? 1,
       obscuringCharacter: '*',
-      obscureText: widget.obscure,
-      keyboardType: widget.keyboardType,
-      validator: widget.validation,
+      obscureText: obscure,
+      keyboardType: keyboardType,
+      validator: validation,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.r),
@@ -71,8 +61,8 @@ class _CustomFormFieldState extends State<CustomFormField> {
         hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontSize: 14.sp,
             ),
-        hintText: widget.hintText,
-        labelText: widget.title,
+        hintText: hintText,
+        labelText: title,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelStyle: WidgetStateTextStyle.resolveWith((states) {
           if (states.contains(WidgetState.error)) {
@@ -83,7 +73,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
                   ) ??
               TextStyle();
         }),
-        suffixIcon: widget.suffixIcon,
+        suffixIcon: suffixIcon,
         fillColor: Colors.white,
         filled: true,
       ),

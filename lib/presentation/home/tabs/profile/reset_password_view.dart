@@ -20,26 +20,20 @@ class ResetPasswordView extends StatefulWidget {
 }
 
 class _ResetPasswordViewState extends State<ResetPasswordView> {
-  final TextEditingController _currentPasswordController =
-      TextEditingController();
-  final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var viewModel = getIt.get<ProfileCubit>();
   @override
   void dispose() {
     // Dispose all controllers
+    /*
     _currentPasswordController.dispose();
     _newPasswordController.dispose();
     _confirmPasswordController.dispose();
-
+*/
     super.dispose();
   }
 
-  bool? checkButtonEnable() => viewModel.processIntent(CheckButtonEnableIntent(
-      _confirmPasswordController,
-      newPass: _newPasswordController));
+  bool checkButtonEnable = false;
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProfileCubit, ProfileState>(
@@ -83,7 +77,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                   obscure: true,
                   title: StringsManager.currentPasswordTitle,
                   hintText: StringsManager.currentPasswordHint,
-                  controller: _currentPasswordController,
+                  controller: viewModel.currentPasswordController,
                   validation: ValidatorsManager.validatePassword,
                 ),
               ),
@@ -93,25 +87,24 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                   obscure: true,
                   title: StringsManager.newPasswordTitle,
                   hintText: StringsManager.newPasswordHint,
-                  controller: _newPasswordController,
+                  controller: viewModel.newPasswordController,
                   validation: ValidatorsManager.validatePassword,
                 ),
               ),
-              BlocBuilder<ProfileCubit, ProfileState>(
-                  bloc: viewModel,
-                  builder: (context, state) {
-                    return Padding(
-                      padding: EdgeInsets.all(16.0.w),
-                      child: CustomFormField(
-                        obscure: true,
-                        isEnable: checkButtonEnable(),
-                        title: StringsManager.confirmPasswordTitle,
-                        hintText: StringsManager.confirmPasswordHint,
-                        controller: _confirmPasswordController,
-                        validation: ValidatorsManager.validatePassword,
-                      ),
-                    );
-                  }),
+              Padding(
+                padding: EdgeInsets.all(16.0.w),
+                child: CustomFormField(
+                  obscure: true,
+                  title: StringsManager.confirmPasswordTitle,
+                  IsEnable: (value) {
+                    viewModel.processIntent(CheckButtonEnableIntent());
+                    return null;
+                  },
+                  hintText: StringsManager.confirmPasswordHint,
+                  controller: viewModel.confirmPasswordController,
+                  validation: ValidatorsManager.validatePassword,
+                ),
+              ),
               SizedBox(
                 height: 40.h,
               ),
@@ -120,26 +113,31 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                 child: Row(
                   children: [
                     Expanded(
-                        child: BlocBuilder<ProfileCubit, ProfileState>(
+                        child: BlocConsumer<ProfileCubit, ProfileState>(
                             bloc: viewModel,
+                            listener: (context, state) {
+                              if (state is ProfileButtonEnableState) {
+                                checkButtonEnable = true;
+                              }
+                            },
                             builder: (context, state) {
                               return ElevatedButton(
-                                onPressed: checkButtonEnable() == false
+                                onPressed: checkButtonEnable == false
                                     ? null
                                     : () {
                                         if (_formKey.currentState!.validate()) {
                                           viewModel.processIntent(
                                             ChangePasswordIntent(
                                               ChangePasswordInputModel(
-                                                  oldPassword:
-                                                      _currentPasswordController
-                                                          .text,
-                                                  password:
-                                                      _newPasswordController
-                                                          .text,
-                                                  rePassword:
-                                                      _confirmPasswordController
-                                                          .text),
+                                                  oldPassword: viewModel
+                                                      .currentPasswordController
+                                                      .text,
+                                                  password: viewModel
+                                                      .newPasswordController
+                                                      .text,
+                                                  rePassword: viewModel
+                                                      .confirmPasswordController
+                                                      .text),
                                             ),
                                           );
                                         }

@@ -21,10 +21,10 @@ class ProfileCubit extends Cubit<ProfileState> {
   ) : super(ProfileInitial());
 
   static ProfileCubit get(BuildContext context) => BlocProvider.of(context);
-
   final GetProfileUsecase _getProfileUsecase;
   final EditeProfileUsecase _editeProfileUsecase;
   final ChangePasswordUsecase _changePasswordUsecase;
+//edite profile controllers
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -32,7 +32,12 @@ class ProfileCubit extends Cubit<ProfileState> {
   final TextEditingController passwordController =
       TextEditingController(text: '********');
   final TextEditingController phoneController = TextEditingController();
-
+//reset password controllers
+  final TextEditingController currentPasswordController =
+      TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   GetProfileEntity? profileData;
 
   dynamic processIntent(ProfileIntent intent) {
@@ -47,14 +52,16 @@ class ProfileCubit extends Cubit<ProfileState> {
         _changePassword(intent.changePasswordInputModel);
         break;
       case CheckButtonEnableIntent():
-        return _checkButtonEnable(intent.controller, newPass: intent.newPass);
+        return _checkButtonEnable();
     }
   }
 
-  bool _checkButtonEnable(controller, {TextEditingController? newPass}) {
-    var field = controller.text;
-    emit(ProfileEnable());
-    return field.isNotEmpty && field.length >= 8 && field == newPass?.text;
+  _checkButtonEnable() {
+    var field = confirmPasswordController.text;
+
+    if (field.length >= 8 && field == newPasswordController.text) {
+      emit(ProfileButtonEnableState());
+    }
   }
 
   void _getProfileData() async {
@@ -114,11 +121,7 @@ sealed class ProfileIntent {}
 
 class GetProfileIntent extends ProfileIntent {}
 
-class CheckButtonEnableIntent extends ProfileIntent {
-  final TextEditingController controller;
-  final TextEditingController? newPass;
-  CheckButtonEnableIntent(this.controller, {this.newPass});
-}
+class CheckButtonEnableIntent extends ProfileIntent {}
 
 class EditeProfileIntent extends ProfileIntent {
   final EditeProfileInputModel editeProfileInputModel;
