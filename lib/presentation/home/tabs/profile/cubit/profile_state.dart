@@ -7,7 +7,7 @@ final class ProfileInitial extends ProfileState {}
 
 final class ProfileLoading extends ProfileState {}
 
-final class ProfileEnable extends ProfileState {}
+final class ProfileButtonEnableState extends ProfileState {}
 
 final class ProfileSuccess extends ProfileState {
   final EditeProfileResponseModel? editeProfileResponseModel;
