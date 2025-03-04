@@ -13,9 +13,9 @@ class AuthDataSourceImpl extends AuthDataSource{
   AuthDataSourceImpl(this.apiManager);
 
   @override
-  Future<Result<AuthResponse>> SingUp (SignUpModel signupModel) async {
+  Future<Result<AuthResponse>> singUp (SignUpModel signupModel) async {
     return apiExecutor(() async {
-      var response =  await apiManager.post(endPoint: EndPoints.signUpEndpoint,body: signupModel.toJson() );
+      var response =  await apiManager.post(endPoint: EndPoints.signUpEndpoint,body: signupModel.toJson());
       AuthResponse authResponse = AuthResponse.fromJson(response.data);
       if(response.statusCode == 200){
         return authResponse;
@@ -26,7 +26,7 @@ class AuthDataSourceImpl extends AuthDataSource{
   }
 
   @override
-  Future<Result<AuthResponse>> SignIn({required String email, required String password}) async {
+  Future<Result<AuthResponse>> signIn({required String email, required String password}) async {
     return apiExecutor(() async {
       var response =  await apiManager.post(endPoint: EndPoints.loginEndpoint,body: {
         "email": email,

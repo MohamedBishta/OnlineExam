@@ -10,6 +10,7 @@ import '../../../core/reusable_components/custom_button.dart';
 import '../../../core/reusable_components/custom_form_field.dart';
 import '../../../core/utils/routing/routes_manager.dart';
 import '../../../core/utils/strings_manager.dart';
+import '../view_model/auth_state.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -226,10 +227,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   BlocConsumer<AuthViewModel, AuthStates>(
                     builder: (BuildContext context, state) {
-                      if (state is SignUpLoadingState) {
+                      if (state is AuthLoadingState) {
                         return Center(
                           child: CircularProgressIndicator(
-                            color: Colors.white,
+                            color: Colors.blue,
                           ),
                         );
                       }
@@ -237,20 +238,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         title: StringsManager.signUp,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            AuthViewModel.get(context).SignUp(SignUpModel(
-                                username: userNameController.text,
-                                firstName: firstNameController.text,
-                                lastName: lastNameController.text,
-                                email: emailController.text,
-                                password: passController.text,
-                                rePassword: confirmPassController.text,
-                                phone: phoneController.text));
+                            AuthViewModel.get(context).doIntent(SignUpIntent(SignUpModel(
+                              firstName: firstNameController.text,
+                              lastName: lastNameController.text,
+                              username: userNameController.text,
+                              phone: phoneController.text,
+                              email: emailController.text,
+                              password: passController.text,
+                              rePassword: passController.text,
+                            )));
                           }
                         },
                       );
                     },
                     listener: (BuildContext context, state) {
-                      if (state is SignUpErrorState) {
+                      if (state is AuthErrorState) {
                         Fluttertoast.showToast(
                             msg: state.error.toString(),
                             toastLength: Toast.LENGTH_SHORT,
@@ -260,7 +262,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             textColor: Colors.white,
                             fontSize: 16.0.sp);
                       }
-                      if (state is SignUpSuccessState) {
+                      if (state is AuthSuccessState) {
                         Fluttertoast.showToast(
                             msg: 'Account Created Successfully',
                             toastLength: Toast.LENGTH_SHORT,

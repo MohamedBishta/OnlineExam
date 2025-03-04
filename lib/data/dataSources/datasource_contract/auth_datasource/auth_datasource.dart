@@ -3,7 +3,7 @@ import '../../../../core/utils/result.dart';
 import '../../../models/Auth/AuthResponse.dart';
 
 abstract class AuthDataSource{
-  Future<Result<AuthResponse>> SingUp(SignUpModel signupModel);
+  Future<Result<AuthResponse>> singUp(SignUpModel signupModel);
 
-  Future<Result<AuthResponse>> SignIn({required String email,required String password});
+  Future<Result<AuthResponse>> signIn({required String email,required String password});
 }

@@ -4,12 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/core/constants.dart';
+import 'package:online_exam/core/local/storage_service.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/presentation/auth/view_model/auth_view_model.dart';
-import '../../../core/local/prefs_helper.dart';
 import '../../../core/reusable_components/custom_button.dart';
 import '../../../core/reusable_components/custom_form_field.dart';
 import '../../../core/utils/routing/routes_manager.dart';
+import '../view_model/auth_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -142,10 +143,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   BlocConsumer<AuthViewModel, AuthStates>(
                     builder: (BuildContext context, state) {
-                      if (state is LoginLoadingState) {
+                      if (state is AuthLoadingState) {
                         return Center(
                           child: CircularProgressIndicator(
-                            color: Colors.white,
+                            color: Colors.blue,
                           ),
                         );
                       }
@@ -153,17 +154,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         title: StringsManager.login,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            AuthViewModel.get(context).SignIn(
-                                email: emailController.text,
-                                password: passController.text);
+                            AuthViewModel.get(context).doIntent(SignInIntent(emailController.text, passController.text));
+
                           }
                         },
                       );
                     },
                     listener: (BuildContext context, state) {
-                      if (state is LoginSuccessState) {
+                      if (state is AuthSuccessState) {
                         if (checkBoxClick == true) {
-                          PrefsHelper.saveToken(state.authEntity.token ?? "");
+                          StorageService.saveSecureData("token",state.authEntity?.token??"");
                         }
                         Fluttertoast.showToast(
                             msg: 'Logged In Successfully',
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           (route) => false,
                         );
                       }
-                      if (state is LoginErrorState) {
+                      if (state is AuthErrorState) {
                         Fluttertoast.showToast(
                             msg: state.error.toString(),
                             toastLength: Toast.LENGTH_SHORT,

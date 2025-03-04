@@ -1,11 +1,12 @@
 import 'package:injectable/injectable.dart';
 import '../../core/utils/result.dart';
+import '../entity/auth_entity.dart';
 import '../repo/auth_repo/auth_repo.dart';
 
 @injectable
-class SigninUsecase{
+class SignInUseCase{
   AuthRepo authRepo;
   @factoryMethod
-  SigninUsecase(this.authRepo);
-  Future<Result> call({required String email, required String password})=> authRepo.SingIn(email: email, password: password);
+  SignInUseCase(this.authRepo);
+  Future<Result<AuthEntity>> call({required String email, required String password})=> authRepo.singIn(email: email, password: password);
 }

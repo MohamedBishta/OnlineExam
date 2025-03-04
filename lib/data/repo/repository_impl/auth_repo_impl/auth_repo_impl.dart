@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
+import 'package:online_exam/domain/entity/auth_entity.dart';
 import '../../../../core/utils/result.dart';
 import '../../../../domain/repo/auth_repo/auth_repo.dart';
 import '../../../dataSources/datasource_contract/auth_datasource/auth_datasource.dart';
-import '../../../models/Auth/AuthResponse.dart';
 import '../../../models/signup_input_model/SignUpModel.dart';
 
 
@@ -14,32 +14,31 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl(this.apiDataSource);
 
   @override
-  Future<Result<AuthResponse>> SingUp(SignUpModel signupModel) async {
-    var result = await apiDataSource.SingUp(signupModel);
+  Future<Result<AuthEntity>> singUp(SignUpModel signupModel) async {
+    var result = await apiDataSource.singUp(signupModel);
     switch (result) {
       case Success():
         {
-          return result;
+          return Success(result.data?.toAuthEntity());
         }
       case Err():
         {
-          return result;
+          return Err(ex: result.ex);
         }
     }
   }
 
   @override
-  Future<Result<AuthResponse>> SingIn(
-      {required String email, required String password}) async {
-    var result = await apiDataSource.SignIn(email: email, password: password);
+  Future<Result<AuthEntity>> singIn({required String email, required String password}) async {
+    var result = await apiDataSource.signIn(email: email, password: password);
     switch (result) {
       case Success():
         {
-          return result;
+          return Success(result.data?.toAuthEntity());
         }
       case Err():
         {
-          return result;
+          return Err(ex: result.ex);
         }
     }
   }

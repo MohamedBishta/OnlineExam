@@ -43,7 +43,8 @@ dependencies:
   fluttertoast: ^8.2.12
   flutter_bloc: ^9.0.0
   shared_preferences: ^2.5.2
-
+  encrypt_shared_preferences: ^0.9.9
+  flutter_secure_storage: ^9.2.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -68,8 +69,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-assets:
-   - assets/translations/
+  assets:
+    - assets/translations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

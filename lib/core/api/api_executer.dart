@@ -11,11 +11,13 @@ Future<Result<T>> apiExecutor<T>(Future<T> Function() apiCall) async {
     // Handle Dio-specific exceptions
     return Err(ex: _handleDioException(dioEx));
   } on Exception catch (ex) {
+    print(ex);
     return (Err(ex: ex));
   }
 }
 
 Exception _handleDioException(DioException dioEx) {
+  print(dioEx);
   switch (dioEx.type) {
     // Network-related errors
     case DioExceptionType.connectionTimeout:
