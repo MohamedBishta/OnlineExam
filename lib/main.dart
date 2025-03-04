@@ -8,6 +8,8 @@ import 'package:online_exam/presentation/forget/forget_password.dart';
 import 'package:online_exam/presentation/forget/reset_password.dart';
 import 'package:online_exam/presentation/forget/verification_code.dart';
 import 'package:online_exam/presentation/home/home_screen.dart';
+import 'package:online_exam/presentation/home/tabs/explore/exam/exam.dart';
+import 'package:online_exam/presentation/home/tabs/explore/exam/exam_score.dart';
 import 'package:online_exam/presentation/home/tabs/profile/edite_profile_tap.dart';
 import 'package:online_exam/presentation/home/tabs/profile/reset_password_view.dart'
     show ResetPasswordView;
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: MyTheme.lightTheme,
-        initialRoute: RoutesManager.homeRoteName,
+        initialRoute: RoutesManager.examScoreRouteName,
         routes: {
           RoutesManager.loginRouteName: (_) => LoginScreen(),
           RoutesManager.registerRoteName: (_) => RegisterScreen(),
@@ -59,7 +61,9 @@ class MyApp extends StatelessWidget {
           RoutesManager.resetPasswordRoteName: (_) => ResetPasswordView(),
           RoutesManager.forgetRouteName: (_) => ForgetPassword(),
           RoutesManager.otpRouteName: (_) => EmailVerification(),
-          RoutesManager.changePasswordRouteName: (_) => ResetPassword()
+          RoutesManager.changePasswordRouteName: (_) => ResetPassword(),
+          RoutesManager.examRouteName: (_) => ExamScreen(),
+          RoutesManager.examScoreRouteName: (_) => ExamScoreScreen()
         },
       ),
     );

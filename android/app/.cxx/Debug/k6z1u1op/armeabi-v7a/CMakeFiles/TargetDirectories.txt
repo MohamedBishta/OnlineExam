@@ -1,2 +1,0 @@
-D:/elevate/OnlineExam/android/app/.cxx/Debug/k6z1u1op/armeabi-v7a/CMakeFiles/edit_cache.dir
-D:/elevate/OnlineExam/android/app/.cxx/Debug/k6z1u1op/armeabi-v7a/CMakeFiles/rebuild_cache.dir

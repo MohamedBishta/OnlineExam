@@ -9,10 +9,25 @@ class MyTheme {
       fontWeight: FontWeight.w500,
       color: ColorsManager.headTheme,
     ),
+    headlineSmall: TextStyle(
+      fontSize: 18.sp,
+      fontWeight: FontWeight.w500,
+      color: ColorsManager.headTheme,
+    ),
+    titleLarge: TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
+      color: ColorsManager.textTheme,
+    ),
     titleSmall: TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: 12.sp,
       color: ColorsManager.textTheme,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 16.sp,
+      fontWeight: FontWeight.w500,
+      color: ColorsManager.headTheme,
     ),
   );
 

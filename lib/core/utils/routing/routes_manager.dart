@@ -8,4 +8,6 @@ class RoutesManager {
   static const String forgetRouteName = '/forget';
   static const String otpRouteName = '/otp';
   static const String changePasswordRouteName = '/changePassword';
+  static const String examRouteName = '/exam';
+  static const String examScoreRouteName = '/examScore';
 }

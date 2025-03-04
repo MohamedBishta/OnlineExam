@@ -1,0 +1,202 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:online_exam/core/utils/colors_manager.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+class ExamScoreScreen extends StatelessWidget {
+  const ExamScoreScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.only(top: 48.0.h),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      //Navigator.pop(context);
+                    },
+                  ),
+                  Text(
+                    'Your score',
+                    style: GoogleFonts.inter(
+                        textStyle: Theme.of(context).textTheme.headlineMedium),
+                  ),
+                ],
+              ),
+              CircleChart(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Correct',
+                        style: GoogleFonts.inter(
+                                textStyle:
+                                    Theme.of(context).textTheme.headlineSmall)
+                            .copyWith(color: ColorsManager.primaryColor),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 24.h),
+                        child: Text(
+                          'Incorrect',
+                          style: GoogleFonts.inter(
+                                  textStyle:
+                                      Theme.of(context).textTheme.headlineSmall)
+                              .copyWith(color: ColorsManager.red),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: 30, // Circle size
+                        height: 30,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 2,
+                            color: ColorsManager.primaryColor,
+                          ),
+                          // Background color
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '18', // Number inside the circle
+                          style: GoogleFonts.inter(
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyLarge)
+                              .copyWith(color: ColorsManager.primaryColor),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 24.h),
+                        width: 30, // Circle size
+                        height: 30,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 2,
+                            color: ColorsManager.red,
+                          ),
+                          // Background color
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '2', // Number inside the circle
+                          style: GoogleFonts.inter(
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyLarge)
+                              .copyWith(color: ColorsManager.red),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Spacer(),
+              TextButton(
+                style: TextButton.styleFrom(
+                    fixedSize: Size(343.w, 48.h),
+                    foregroundColor: ColorsManager.customBlue.shade50,
+                    backgroundColor: ColorsManager.primaryColor),
+                onPressed: () {},
+                child: Text('Show Result',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(color: ColorsManager.customBlue.shade50)),
+              ),
+              Spacer(),
+              TextButton(
+                style: TextButton.styleFrom(
+                    side: BorderSide(color: ColorsManager.primaryColor),
+                    fixedSize: Size(343.w, 48.h),
+                    foregroundColor: ColorsManager.primaryColor,
+                    backgroundColor: Colors.transparent),
+                onPressed: () {},
+                child: Text(
+                  'Start Again',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: ColorsManager.primaryColor),
+                ),
+              ),
+              Spacer(
+                flex: 5,
+              )
+            ]),
+      ),
+    );
+  }
+}
+
+class CircleChart extends StatelessWidget {
+  const CircleChart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Center(
+          child: Text(
+            '80%',
+            style: GoogleFonts.poppins(
+              fontSize: 25.sp,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 250,
+          width: 250,
+          child: SfCircularChart(
+            enableMultiSelection: false,
+            series: <CircularSeries>[
+              DoughnutSeries<ChartData, String>(
+                dataSource: [
+                  ChartData('Blue', 80, ColorsManager.primaryColor),
+                  ChartData('Red', 20, ColorsManager.red),
+                ],
+                xValueMapper: (ChartData data, _) => data.label,
+                yValueMapper: (ChartData data, _) => data.value,
+                pointColorMapper: (ChartData data, _) => data.color,
+                dataLabelSettings: DataLabelSettings(isVisible: false),
+                radius: '60%',
+                innerRadius: '90%',
+                cornerStyle: CornerStyle.bothCurve,
+                animationDuration: 900,
+                legendIconType: LegendIconType.pentagon,
+                enableTooltip: true,
+                explode: true,
+                explodeAll: true,
+                explodeOffset: '5%',
+                // groupTo: .35,
+                groupMode: CircularChartGroupMode.value,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ChartData {
+  final String label;
+  final double value;
+  final Color color;
+
+  ChartData(this.label, this.value, this.color);
+}

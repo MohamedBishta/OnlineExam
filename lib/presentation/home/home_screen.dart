@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: ImageIcon(AssetImage(AssetsManager.result)),
+            icon: ImageIcon(AssetImage(AssetsManager.resultIcon)),
             label: 'Results',
           ),
           NavigationDestination(
