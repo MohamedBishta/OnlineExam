@@ -33,6 +33,8 @@ class StringsManager {
   static String get token => 'token'.tr();
   static String get update => 'update'.tr();
   static String get profile => 'profile'.tr();
+  static String get explore => 'explore'.tr();
+  static String get results => 'results'.tr();
   static String get editeProfile => 'editeProfile'.tr();
   static String get user => 'user'.tr();
   static String get change => 'change'.tr();
@@ -41,4 +43,16 @@ class StringsManager {
       'profileUpdatedSuccessfully'.tr();
   static String get passwordChangedSuccessfully =>
       'passwordChangedSuccessfully'.tr();
+
+  static String get forgetPasswordTitle=> 'forget_password_title'.tr();
+  static String get forgetPasswordText => 'forget_password_text'.tr();
+  static String get continueButton => 'continue_button'.tr();
+  static String get emailVerificationTitle => 'email_verification_title'.tr();
+  static String get emailVerificationText => 'email_verification_text'.tr();
+  static String get otpSendText => 'otp_send_text'.tr();
+  static String get otpResendText => 'otp_resend_text'.tr();
+  static String get resetPasswordTitle => 'reset_password_title'.tr();
+  static String get resetPasswordText => 'reset_password_text'.tr();
+  static String get NewPasswordTitle => 'new_password_title'.tr();
+
 }
