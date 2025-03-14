@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: EdgeInsets.only(left: 16.0.w, top: 54.h),
             child: Text(title[selectedIndex],
-                style: Theme.of(context).textTheme.headlineMedium),
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: ColorsManager.customBlue)),
           ),
           Expanded(child: homeTaps[selectedIndex]),
         ],
@@ -58,12 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedIndex = index;
           });
         },
-        indicatorColor: const Color(0xffCCD7EB),
+        indicatorColor:  ColorsManager.customBlue.shade100,
         selectedIndex: selectedIndex,
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
+            icon: Icon(Icons.home_outlined,color: ColorsManager.primaryColor,),
             label: 'Home',
           ),
           NavigationDestination(

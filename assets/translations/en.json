@@ -48,5 +48,14 @@
   "otp_resend_text": "Resend",
   "reset_password_title": "Reset Password",
   "reset_password_text": "Password must not be empty and must contain\n6 characters with an uppercase letter and one\nnumber at least",
-  "new_password_title": "New Password"
+  "new_password_title": "New Password",
+  "minutes": "Minutes",
+  "quiz": "Quiz's",
+  "question": "Question",
+  "instructions": "Instructions",
+  "instructions_1":"Answer Selection: Each question has 4 options—select the best answer.",
+  "instructions_2":"Time Limit: The time limit for this exam is specified on the exam screen.",
+  "instructions_3":"Navigation & Submission: You can move between questions, but once submitted, answers cannot be changed.",
+  "instructions_4":"Rules: Do not refresh, close, or switch apps, or you may be disqualified.",
+  "start": "Start"
 }
