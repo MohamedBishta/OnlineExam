@@ -4,11 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:online_exam/core/utils/colors_manager.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import 'cubit/exam_cubit.dart';
+
 class ExamScoreScreen extends StatelessWidget {
   const ExamScoreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ExamCubit viewModel =
+        ModalRoute.of(context)!.settings.arguments as ExamCubit;
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: 48.0.h),
@@ -31,7 +35,9 @@ class ExamScoreScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              CircleChart(),
+              CircleChart(
+                viewModel: viewModel,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -72,7 +78,9 @@ class ExamScoreScreen extends StatelessWidget {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          '18', // Number inside the circle
+                          viewModel.checkAnswersModel.correctQuestions?.length
+                                  .toString() ??
+                              '0', // Number inside the circle
                           style: GoogleFonts.inter(
                                   textStyle:
                                       Theme.of(context).textTheme.bodyLarge)
@@ -93,7 +101,9 @@ class ExamScoreScreen extends StatelessWidget {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          '2', // Number inside the circle
+                          viewModel.checkAnswersModel.wrongQuestions?.length
+                                  .toString() ??
+                              '0', // Number inside the circle
                           style: GoogleFonts.inter(
                                   textStyle:
                                       Theme.of(context).textTheme.bodyLarge)
@@ -105,11 +115,10 @@ class ExamScoreScreen extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              TextButton(
-                style: TextButton.styleFrom(
-                    fixedSize: Size(343.w, 48.h),
-                    foregroundColor: ColorsManager.customBlue.shade50,
-                    backgroundColor: ColorsManager.primaryColor),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(343.w, 48.h),
+                ),
                 onPressed: () {},
                 child: Text('Show Result',
                     style: Theme.of(context)
@@ -124,7 +133,10 @@ class ExamScoreScreen extends StatelessWidget {
                     fixedSize: Size(343.w, 48.h),
                     foregroundColor: ColorsManager.primaryColor,
                     backgroundColor: Colors.transparent),
-                onPressed: () {},
+                onPressed: () {
+                  viewModel.processIntent(
+                      NavigateToExamScreenIntent(context: context));
+                },
                 child: Text(
                   'Start Again',
                   style: Theme.of(context)
@@ -143,8 +155,8 @@ class ExamScoreScreen extends StatelessWidget {
 }
 
 class CircleChart extends StatelessWidget {
-  const CircleChart({super.key});
-
+  const CircleChart({super.key, required this.viewModel});
+  final ExamCubit viewModel;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -152,7 +164,7 @@ class CircleChart extends StatelessWidget {
       children: [
         Center(
           child: Text(
-            '80%',
+            '${viewModel.bluePercentage}%',
             style: GoogleFonts.poppins(
               fontSize: 25.sp,
             ),
@@ -166,8 +178,9 @@ class CircleChart extends StatelessWidget {
             series: <CircularSeries>[
               DoughnutSeries<ChartData, String>(
                 dataSource: [
-                  ChartData('Blue', 80, ColorsManager.primaryColor),
-                  ChartData('Red', 20, ColorsManager.red),
+                  ChartData('Blue', viewModel.bluePercentage,
+                      ColorsManager.primaryColor),
+                  ChartData('Red', viewModel.redPercentage, ColorsManager.red),
                 ],
                 xValueMapper: (ChartData data, _) => data.label,
                 yValueMapper: (ChartData data, _) => data.value,
@@ -195,7 +208,7 @@ class CircleChart extends StatelessWidget {
 
 class ChartData {
   final String label;
-  final double value;
+  final int value;
   final Color color;
 
   ChartData(this.label, this.value, this.color);

@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: MyTheme.lightTheme,
-        initialRoute: RoutesManager.examScoreRouteName,
+        initialRoute: RoutesManager.examRouteName,
         routes: {
           RoutesManager.loginRouteName: (_) => LoginScreen(),
           RoutesManager.registerRoteName: (_) => RegisterScreen(),

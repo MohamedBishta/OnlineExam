@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/colors_manager.dart';
-import '../exam.dart';
 
 class CustomRadioListTile extends StatelessWidget {
   final String title;
-  final SingingCharacter value;
-  final SingingCharacter? groupValue;
-  final ValueChanged<SingingCharacter?> onChanged;
+  final String value;
+  final String? groupValue;
+  final ValueChanged<String?> onChanged;
 
   const CustomRadioListTile({
     super.key,
@@ -21,8 +20,13 @@ class CustomRadioListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         iconColor: Colors.red,
-        title: Text(title),
-        leading: Radio<SingingCharacter>(
+        title: Text(
+          title,
+          // overflow: TextOverflow.ellipsis,
+          //maxLines: 2,
+        ),
+        enableFeedback: true,
+        leading: Radio<String>(
           value: value,
           groupValue: groupValue,
           onChanged: onChanged,

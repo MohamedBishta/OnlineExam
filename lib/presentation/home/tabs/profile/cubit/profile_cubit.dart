@@ -20,7 +20,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     this._changePasswordUsecase,
   ) : super(ProfileInitial());
 
-  static ProfileCubit get(BuildContext context) => BlocProvider.of(context);
   final GetProfileUsecase _getProfileUsecase;
   final EditeProfileUsecase _editeProfileUsecase;
   final ChangePasswordUsecase _changePasswordUsecase;

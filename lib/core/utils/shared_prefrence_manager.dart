@@ -17,6 +17,70 @@ class SharedPreferencesManager {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
+  // Save any model with user-specific key
+  static void saveModelForUser<T>({
+    required String userId,
+    required String key,
+    required T model,
+    required Map<String, dynamic> Function(T) toJson,
+  }) {
+    try {
+      String userSpecificKey = _getUserSpecificKey(userId, key);
+      String modelJson = jsonEncode(toJson(model));
+      _sharedPreferences.setString(userSpecificKey, modelJson);
+    } catch (e) {
+      print('Error saving model for user: $e');
+    }
+  }
+
+  // Delete any model with user-specific key
+  static void deleteModelForUser({
+    required String userId,
+    required String key,
+  }) {
+    String userSpecificKey = _getUserSpecificKey(userId, key);
+    _sharedPreferences.remove(userSpecificKey);
+  }
+
+  // Generate a user-specific key
+  static String _getUserSpecificKey(String userId, String key) {
+    return '${userId}_$key'; // Combine user ID and key
+  }
+
+  // Retrieve any model with user-specific key
+  static T? getModelForUser<T>({
+    required String userId,
+    required String key,
+    required T Function(Map<String, dynamic>) fromJson,
+  }) {
+    try {
+      String userSpecificKey = _getUserSpecificKey(userId, key);
+      String? modelJson = _sharedPreferences.getString(userSpecificKey);
+      if (modelJson != null && modelJson.isNotEmpty) {
+        Map<String, dynamic> modelMap = jsonDecode(modelJson);
+        return fromJson(modelMap);
+      }
+    } catch (e) {
+      print('Error retrieving model for user: $e');
+    }
+    return null; // Return null if no model found
+  }
+
+  // Update any model with user-specific key
+  static void updateModelForUser<T>({
+    required String userId,
+    required String key,
+    required T model,
+    required Map<String, dynamic> Function(T) toJson,
+  }) {
+    saveModelForUser(
+      userId: userId,
+      key: key,
+      model: model,
+      toJson: toJson,
+    ); // Reuse saveModelForUser to update
+  }
+
   // Save user data
   static void saveUser({required String key, required UserEntity user}) {
     try {
