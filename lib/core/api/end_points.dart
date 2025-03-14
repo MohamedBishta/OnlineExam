@@ -7,4 +7,6 @@ abstract class EndPoints {
   static const resetPassword = '${_baseUrl}auth/resetPassword';
   static const editProfile = '$_baseUrl/auth/editProfile';
   static const changePassword = '$_baseUrl/auth/changePassword';
+  static const getSubjects = '$_baseUrl/subjects';
+  static const getSubjectExams='$_baseUrl/exams';
 }

@@ -54,5 +54,14 @@ class StringsManager {
   static String get resetPasswordTitle => 'reset_password_title'.tr();
   static String get resetPasswordText => 'reset_password_text'.tr();
   static String get NewPasswordTitle => 'new_password_title'.tr();
+  static String get Minutes=>'minutes'.tr();
+  static String get Quiz=>'quiz'.tr();
+  static String get Question=>'question'.tr();
+  static String get Instructions=>'instructions'.tr();
+  static String get Instructions_1=>'instructions_1'.tr();
+  static String get Instructions_2=>'instructions_2'.tr();
+  static String get Instructions_3=>'instructions_3'.tr();
+  static String get Instructions_4=>'instructions_4'.tr();
+  static String get Start=>'start'.tr();
 
 }

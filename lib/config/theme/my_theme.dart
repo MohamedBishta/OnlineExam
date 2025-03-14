@@ -42,6 +42,16 @@ class MyTheme {
       filled: true,
     ),
 
+
+    cardTheme: CardTheme(
+      color: Colors.white,
+      shadowColor: ColorsManager.customGray.shade500,
+      margin: EdgeInsets.all(8.0),
+    ),
+
+
+
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
