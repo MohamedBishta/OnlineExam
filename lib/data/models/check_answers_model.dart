@@ -6,13 +6,14 @@ class CheckAnswersModel {
   List<WrongQuestions>? wrongQuestions;
   List<CorrectQuestions>? correctQuestions;
 
-  CheckAnswersModel(
-      {this.message,
-      this.correct,
-      this.wrong,
-      this.total,
-      this.wrongQuestions,
-      this.correctQuestions});
+  CheckAnswersModel({
+    this.message,
+    this.correct,
+    this.wrong,
+    this.total,
+    this.wrongQuestions,
+    this.correctQuestions,
+  });
 
   CheckAnswersModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
@@ -31,6 +32,22 @@ class CheckAnswersModel {
         correctQuestions!.add(CorrectQuestions.fromJson(v));
       });
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
+    data['correct'] = correct;
+    data['wrong'] = wrong;
+    data['total'] = total;
+    if (wrongQuestions != null) {
+      data['WrongQuestions'] = wrongQuestions!.map((v) => v.toJson()).toList();
+    }
+    if (correctQuestions != null) {
+      data['correctQuestions'] =
+          correctQuestions!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 
@@ -53,6 +70,15 @@ class WrongQuestions {
     inCorrectAnswer = json['inCorrectAnswer'];
     correctAnswer = json['correctAnswer'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['QID'] = qID;
+    data['Question'] = question;
+    data['inCorrectAnswer'] = inCorrectAnswer;
+    data['correctAnswer'] = correctAnswer;
+    return data;
+  }
 }
 
 class CorrectQuestions {
@@ -70,5 +96,13 @@ class CorrectQuestions {
     qID = json['QID'];
     question = json['Question'];
     correctAnswer = json['correctAnswer'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['QID'] = qID;
+    data['Question'] = question;
+    data['correctAnswer'] = correctAnswer;
+    return data;
   }
 }

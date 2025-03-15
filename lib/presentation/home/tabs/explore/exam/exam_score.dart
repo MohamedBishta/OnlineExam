@@ -119,7 +119,10 @@ class ExamScoreScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(343.w, 48.h),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  viewModel.processIntent(
+                      NavigateToAnswersScreenIntent(context: context));
+                },
                 child: Text('Show Result',
                     style: Theme.of(context)
                         .textTheme
