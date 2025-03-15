@@ -47,7 +47,6 @@ dependencies:
   lottie: ^3.3.1
   easy_localization: ^3.0.7+1
   fluttertoast: ^8.2.12
-  flutter_bloc: ^9.0.0
   shared_preferences: ^2.5.2
   encrypt_shared_preferences: ^0.9.9
   flutter_secure_storage: ^9.2.4
@@ -55,8 +54,8 @@ dependencies:
   meta: ^1.15.0
   injectable_generator: ^2.7.0
   connectivity_plus: ^6.1.3
-  shared_preferences: ^2.5.2
   pretty_dio_logger: ^1.4.0
+  mockito: ^5.4.5
 
 dev_dependencies:
   flutter_test:
@@ -84,10 +83,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/animation/fail.json
-   - assets/animation/success.json
-   - assets/icons/
-   - assets/images/
-   - assets/translations/
+    - assets/animation/success.json
+    - assets/icons/
+    - assets/images/
+    - assets/translations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -17,7 +17,6 @@ class AuthViewModel extends Cubit<AuthStates>{
   static AuthViewModel get(BuildContext context)=>BlocProvider.of(context);
   void doIntent(AuthIntent authIntent){
     switch(authIntent){
-
       case SignInIntent():
         return _signIn(email: authIntent.email, password: authIntent.password);
       case SignUpIntent():

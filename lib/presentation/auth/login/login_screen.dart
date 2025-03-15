@@ -160,11 +160,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       );
                     },
-                    listener: (BuildContext context, state) {
+                    listener: (BuildContext context, state) async {
                       if (state is AuthSuccessState) {
                         if (checkBoxClick == true) {
-                          StorageService.saveSecureData("token",state.authEntity?.token??"");
+                          await StorageService.saveSecureData("token",state.authEntity?.token??"");
                         }
+                        await StorageService.saveSecureData("token",state.authEntity?.token??"");
+                        var result =await  StorageService.readSecureData();
+                        print(result);
                         Fluttertoast.showToast(
                             msg: 'Logged In Successfully',
                             toastLength: Toast.LENGTH_SHORT,
