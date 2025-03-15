@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
 import 'package:online_exam/domain/entity/get_profile_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@injectable
 class SharedPreferencesManager {
+  static const String _userId = '1';
   // Singleton instance
   static final SharedPreferencesManager _instance =
       SharedPreferencesManager._internal();
@@ -17,68 +20,43 @@ class SharedPreferencesManager {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  // Save any model with user-specific key
-  static void saveModelForUser<T>({
-    required String userId,
+  static void saveDataModel({
     required String key,
-    required T model,
-    required Map<String, dynamic> Function(T) toJson,
+    required Map<String, dynamic> data,
   }) {
     try {
-      String userSpecificKey = _getUserSpecificKey(userId, key);
-      String modelJson = jsonEncode(toJson(model));
-      _sharedPreferences.setString(userSpecificKey, modelJson);
+      String userSpecificKey = _getUserSpecificKey(key);
+      String dataJson = jsonEncode(data);
+      _sharedPreferences.setString(userSpecificKey, dataJson);
     } catch (e) {
-      print('Error saving model for user: $e');
+      print('Error saving data: $e');
     }
   }
 
-  // Delete any model with user-specific key
-  static void deleteModelForUser({
-    required String userId,
+  static void deleteData({
     required String key,
   }) {
-    String userSpecificKey = _getUserSpecificKey(userId, key);
+    String userSpecificKey = _getUserSpecificKey(key);
     _sharedPreferences.remove(userSpecificKey);
   }
 
-  // Generate a user-specific key
-  static String _getUserSpecificKey(String userId, String key) {
-    return '${userId}_$key'; // Combine user ID and key
+  static String _getUserSpecificKey(String key) {
+    return '${_userId}_$key'; // Combine user ID and key
   }
 
-  // Retrieve any model with user-specific key
-  static T? getModelForUser<T>({
-    required String userId,
+  static Map<String, dynamic>? getDataModel({
     required String key,
-    required T Function(Map<String, dynamic>) fromJson,
   }) {
     try {
-      String userSpecificKey = _getUserSpecificKey(userId, key);
-      String? modelJson = _sharedPreferences.getString(userSpecificKey);
-      if (modelJson != null && modelJson.isNotEmpty) {
-        Map<String, dynamic> modelMap = jsonDecode(modelJson);
-        return fromJson(modelMap);
+      String userSpecificKey = _getUserSpecificKey(key);
+      String? dataJson = _sharedPreferences.getString(userSpecificKey);
+      if (dataJson != null && dataJson.isNotEmpty) {
+        return jsonDecode(dataJson);
       }
     } catch (e) {
-      print('Error retrieving model for user: $e');
+      print('Error retrieving data: $e');
     }
-    return null; // Return null if no model found
-  }
-
-  // Update any model with user-specific key
-  static void updateModelForUser<T>({
-    required String userId,
-    required String key,
-    required T model,
-    required Map<String, dynamic> Function(T) toJson,
-  }) {
-    saveModelForUser(
-      userId: userId,
-      key: key,
-      model: model,
-      toJson: toJson,
-    ); // Reuse saveModelForUser to update
+    return null; // Return null if no data found
   }
 
   // Save user data

@@ -13,6 +13,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../../../core/api/api_manager.dart' as _i901;
+import '../../../core/utils/shared_prefrence_manager.dart' as _i437;
 import '../../../data/dataSources/remoteDataSource/exam_repo_datasource.dart'
     as _i1025;
 import '../../../data/dataSources/remoteDataSource/exam_repo_datasource_impl.dart'
@@ -80,6 +81,8 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.factory<_i901.ApiManager>(() => _i901.ApiManager());
+    gh.factory<_i437.SharedPreferencesManager>(
+        () => _i437.SharedPreferencesManager());
     gh.factory<_i858.ProfileRemoteDto>(
         () => _i56.ProfileRemoteDtoImpl(gh<_i901.ApiManager>()));
     gh.factory<_i101.OtpCodeDataOnlineSource>(

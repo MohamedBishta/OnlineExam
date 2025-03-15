@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/core/utils/routing/routes_manager.dart';
+import 'package:online_exam/core/utils/shared_prefrence_manager.dart';
 import 'package:online_exam/data/models/check_answers_model.dart';
 import 'package:online_exam/data/models/get_all_question_on_exam_model.dart';
 
@@ -23,7 +24,7 @@ class ExamCubit extends Cubit<ExamState> {
 
   final double _scrollAmount = 343.0.w;
   bool _isScrolling = false;
-
+  String? _examId;
   late CheckAnswersModel checkAnswersModel;
   List<Questions>? questionsList;
   List<AnswersInputModel> answersList = [];
@@ -34,7 +35,7 @@ class ExamCubit extends Cubit<ExamState> {
   int currentQuestionNumber = 1;
   int totalQuestionNumber = 20;
 
-  processIntent(ExamIntent intent) {
+  dynamic processIntent(ExamIntent intent) {
     switch (intent) {
       case ScrollNextIntent():
         _scrollNext(intent.scrollController);
@@ -54,6 +55,9 @@ class ExamCubit extends Cubit<ExamState> {
         break;
       case NavigateToExamScreenIntent():
         _navigateToExamScreen(intent.context);
+        break;
+      case NavigateToAnswersScreenIntent():
+        _navigateToAnswersScreen(intent.context);
     }
   }
 
@@ -103,6 +107,7 @@ class ExamCubit extends Cubit<ExamState> {
     switch (result) {
       case Success<GetAllQuestionOnExamModel>():
         questionsList = result.data!.questions;
+        _examId = result.data!.questions![0].exam!.sId;
         totalQuestionNumber = questionsList!.length;
         emit(ExamSuccess());
         break;
@@ -124,13 +129,16 @@ class ExamCubit extends Cubit<ExamState> {
 
   _checkAnswers(CheckAnswersInputModel checkAnswersInputModel,
       BuildContext context, ExamCubit viewModel) async {
+    String key = 'answers_${_examId}';
+    SharedPreferencesManager.saveDataModel(
+        key: key, data: checkAnswersInputModel.toJson());
     emit(ExamLoading());
     var result = await _checkAnswersUsecase.call(
         checkAnswersInput: checkAnswersInputModel);
     answersList.clear();
     switch (result) {
       case Success():
-        _navigateToResultScreen(context, viewModel);
+        _navigateToScoreScreen(context, viewModel);
         checkAnswersModel = result.data;
         bluePercentage = ((checkAnswersModel.correctQuestions!.length /
                     totalQuestionNumber) *
@@ -143,7 +151,7 @@ class ExamCubit extends Cubit<ExamState> {
     }
   }
 
-  _navigateToResultScreen(context, ExamCubit viewModel) {
+  _navigateToScoreScreen(context, ExamCubit viewModel) {
     Navigator.pushReplacementNamed(context, RoutesManager.examScoreRouteName,
         arguments: viewModel);
   }
@@ -154,6 +162,13 @@ class ExamCubit extends Cubit<ExamState> {
       RoutesManager.examRouteName,
     );
   }
+
+  _navigateToAnswersScreen(context) {
+    Navigator.pushNamed(
+      context,
+      RoutesManager.answersRouteName,
+    );
+  }
 }
 
 sealed class ExamIntent {}
@@ -161,6 +176,11 @@ sealed class ExamIntent {}
 final class NavigateToExamScreenIntent extends ExamIntent {
   final BuildContext context;
   NavigateToExamScreenIntent({required this.context});
+}
+
+final class NavigateToAnswersScreenIntent extends ExamIntent {
+  final BuildContext context;
+  NavigateToAnswersScreenIntent({required this.context});
 }
 
 final class ScrollNextIntent extends ExamIntent {

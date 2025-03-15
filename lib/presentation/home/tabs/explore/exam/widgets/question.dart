@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:online_exam/data/models/get_all_question_on_exam_model.dart'
     show Questions;
 
@@ -18,7 +19,6 @@ class Question extends StatefulWidget {
 
 class _QuestionState extends State<Question> {
   String? _character;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -34,7 +34,9 @@ class _QuestionState extends State<Question> {
                 padding: EdgeInsets.only(bottom: 8.0.h, left: 8.w),
                 child: Text(
                   widget.question.question ?? 'no question',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: GoogleFonts.inter(
+                    textStyle: Theme.of(context).textTheme.headlineSmall,
+                  ),
                 ),
               ),
               Expanded(

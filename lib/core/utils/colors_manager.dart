@@ -9,7 +9,12 @@ class ColorsManager {
   static const Color textTheme = Color(0xff535353);
   static const Color babyBlue = Color(0xff02369C);
   static const Color green = Color(0xff11CE19);
+  static const Color lightGreen = Color(0xffCAF9CC);
+
   static const Color red = Color(0xffCC1010);
+  static const Color lightRed = Color(0xffF8D2D2);
+
+  static const Color white = Color(0xffFFFFFF);
 
   static const MaterialColor customBlue = MaterialColor(
     _baseBlueColor,
