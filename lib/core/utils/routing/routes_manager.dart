@@ -10,4 +10,5 @@ class RoutesManager {
   static const String changePasswordRouteName = '/changePassword';
   static const String examRouteName = '/exam';
   static const String examScoreRouteName = '/examScore';
+  static const String answersRouteName = '/answers';
 }
