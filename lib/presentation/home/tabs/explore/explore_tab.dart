@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:online_exam/config/theme/di/di.dart';
-import 'package:online_exam/config/theme/my_theme.dart';
 import 'package:online_exam/core/utils/colors_manager.dart';
+import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/presentation/home/tabs/explore/cubit/get_subjects_cubit.dart';
 import 'package:online_exam/presentation/home/tabs/explore/cubit/get_subjects_state.dart';
 import 'package:online_exam/presentation/home/tabs/explore/subject_exam.dart';
-
+import '../../../../core/di/di.dart';
 import '../../../../core/reusable_components/custom_circular_indicator.dart';
 
 class ExploreTab extends StatefulWidget {
@@ -74,7 +73,7 @@ class _ExploreTabState extends State<ExploreTab> {
                             Icons.search,
                             color: ColorsManager.customGray.shade100,
                           ),
-                          hintText: 'Search',
+                          hintText: StringsManager.Search,
                           hintStyle: WidgetStateProperty.all(
                             Theme.of(context).textTheme.titleSmall?.copyWith(
                                 color: ColorsManager.customGray.shade100,
@@ -82,7 +81,7 @@ class _ExploreTabState extends State<ExploreTab> {
                           )),
                       Row(
                         children: <Widget>[
-                          Text('Browse by subject',
+                          Text(StringsManager.BrowseBySubject,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium
@@ -93,7 +92,7 @@ class _ExploreTabState extends State<ExploreTab> {
                         child: state.subjects.length == 0
                             ? Center(
                                 child: Text(
-                                  'No Subject found',
+                                  StringsManager.NoSubjectFound,
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleSmall
@@ -142,7 +141,7 @@ class _ExploreTabState extends State<ExploreTab> {
           } else if (state is GetSubjectsFailure) {
             return Center(child: Text('Error: ${state.error}'));
           } else {
-            return Center(child: Text('No data available.'));
+            return Center(child: Text(StringsManager.NoDataAvailable));
           }
         },
       ),
@@ -150,40 +149,4 @@ class _ExploreTabState extends State<ExploreTab> {
   }
 }
 
-// Column(
-// spacing: 40.0,
-// children: <Widget>[
-//
-// Row(
-// children: <Widget>[
-// Text('Browse by subject',style:Theme.of(context).textTheme.headlineMedium?.copyWith(
-// fontSize: 22
-//
-// ))
-// ],
-// ),
-// Container(
-// height: 80,
-// child: Card(
-//
-// child: ListTile(leading: Icon(Icons.computer),
-// title: Text('Language'),
-//
-// ),
-// ),
-// ),
-// Container(
-// height: 80,
-// child: Card(
-//
-// child: ListTile(leading: Icon(Icons.computer),
-// title: Text('Language'),
-//
-// ),
-// ),
-// )
-//
-//
-//
-// ],
-// )
+

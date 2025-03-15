@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_exam/core/utils/colors_manager.dart';
+import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'cubit/exam_cubit.dart';
@@ -29,7 +30,7 @@ class ExamScoreScreen extends StatelessWidget {
                     },
                   ),
                   Text(
-                    'Your score',
+                    StringsManager.YourScore,
                     style: GoogleFonts.inter(
                         textStyle: Theme.of(context).textTheme.headlineMedium),
                   ),
@@ -45,7 +46,7 @@ class ExamScoreScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Correct',
+                        StringsManager.Correct,
                         style: GoogleFonts.inter(
                                 textStyle:
                                     Theme.of(context).textTheme.headlineSmall)
@@ -54,7 +55,7 @@ class ExamScoreScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 24.h),
                         child: Text(
-                          'Incorrect',
+                          StringsManager.Incorrect,
                           style: GoogleFonts.inter(
                                   textStyle:
                                       Theme.of(context).textTheme.headlineSmall)
@@ -120,7 +121,7 @@ class ExamScoreScreen extends StatelessWidget {
                   fixedSize: Size(343.w, 48.h),
                 ),
                 onPressed: () {},
-                child: Text('Show Result',
+                child: Text(StringsManager.ShowResult,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge!
@@ -138,7 +139,7 @@ class ExamScoreScreen extends StatelessWidget {
                       NavigateToExamScreenIntent(context: context));
                 },
                 child: Text(
-                  'Start Again',
+                  StringsManager.StartAgain,
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge!

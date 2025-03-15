@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/core/reusable_components/custom_circular_indicator.dart';
 import 'package:online_exam/core/reusable_components/custom_err_icon.dart';
 import 'package:online_exam/core/utils/assets_manager.dart';
 import 'package:online_exam/core/utils/colors_manager.dart';
+import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/data/models/check_answers_input_model.dart';
 import 'package:online_exam/presentation/home/tabs/explore/exam/cubit/exam_cubit.dart';
 import 'package:online_exam/presentation/home/tabs/explore/exam/widgets/question.dart';
 import 'package:online_exam/presentation/home/tabs/explore/exam/widgets/timer.dart';
 
+import '../../../../../core/di/di.dart';
+
 class ExamScreen extends StatefulWidget {
-  const ExamScreen({super.key});
+  const ExamScreen({super.key, this.examId});
+  final examId;
 
   @override
   State<ExamScreen> createState() => _ExamScreenState();
@@ -27,7 +30,7 @@ class _ExamScreenState extends State<ExamScreen> {
   @override
   void initState() {
     viewModel.processIntent(
-        GetAllQuestionOnExamIntent(examId: '670070a830a3c3c1944a9c63'));
+        GetAllQuestionOnExamIntent(examId: widget.examId));
     super.initState();
   }
 
@@ -37,13 +40,66 @@ class _ExamScreenState extends State<ExamScreen> {
     _isLessThan5Minutes.dispose();
     super.dispose();
   }
-
+  void onTimeEnd() {
+    // Show dialog when time ends
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 86,
+                  width: 45,
+                  child: Image.asset('assets/images/sandclock1.png', fit: BoxFit.contain),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  "Time out !!",
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  viewModel.processIntent(
+                    CheckAnswersIntent(
+                        viewModel: viewModel,
+                        context: context,
+                        checkAnswersInputModel:
+                        CheckAnswersInputModel(
+                            answers:
+                            viewModel.answersList,
+                            time: 10)),
+                  );
+                  // Navigate back to the previous screen
+                },
+                child:  Text(StringsManager.YourScore, style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Exam',
+          StringsManager.ExamTitle,
           style: GoogleFonts.inter(
               textStyle: Theme.of(context).textTheme.headlineMedium),
         ),
@@ -65,6 +121,8 @@ class _ExamScreenState extends State<ExamScreen> {
                   return Timer(
                     isLessThan5Minutes: _isLessThan5Minutes,
                     examDuration: viewModel.questionsList![1].exam!.duration!,
+                    onTimeEnd: onTimeEnd,
+
                   );
                 } else if (state is ExamError) {
                   return CustomErrIcon();
@@ -87,7 +145,7 @@ class _ExamScreenState extends State<ExamScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                        'Question ${viewModel.currentQuestionNumber} of ${viewModel.totalQuestionNumber}',
+                        '${StringsManager.Question} ${viewModel.currentQuestionNumber} of ${viewModel.totalQuestionNumber}',
                         style: Theme.of(context).textTheme.titleLarge),
                     LinearProgressIndicator(
                       value: viewModel.currentQuestionNumber /
@@ -132,7 +190,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                         scrollController: scrollController));
                               },
                               child: Text(
-                                'Back',
+                                StringsManager.Back,
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -166,8 +224,8 @@ class _ExamScreenState extends State<ExamScreen> {
                             child: Text(
                                 viewModel.currentQuestionNumber ==
                                         viewModel.totalQuestionNumber
-                                    ? 'Submit'
-                                    : 'Next',
+                                    ? StringsManager.Submit
+                                    : StringsManager.Next,
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!

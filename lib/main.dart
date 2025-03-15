@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/config/theme/my_theme.dart';
 import 'package:online_exam/presentation/forget/forget_password.dart';
 import 'package:online_exam/presentation/forget/reset_password.dart';
@@ -16,6 +15,7 @@ import 'package:online_exam/presentation/home/tabs/profile/reset_password_view.d
 import 'package:online_exam/presentation/login/login_screen.dart';
 import 'package:online_exam/presentation/register/register_screen.dart';
 
+import 'core/di/di.dart';
 import 'core/utils/bloc_observer.dart';
 import 'core/utils/routing/routes_manager.dart';
 import 'core/utils/shared_prefrence_manager.dart';
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: MyTheme.lightTheme,
-        initialRoute: RoutesManager.examRouteName,
+        initialRoute: RoutesManager.homeRoteName,
         routes: {
           RoutesManager.loginRouteName: (_) => LoginScreen(),
           RoutesManager.registerRoteName: (_) => RegisterScreen(),

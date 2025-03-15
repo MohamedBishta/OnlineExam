@@ -9,8 +9,8 @@ import 'package:online_exam/presentation/forget/cubit/forget_password_state.dart
 import 'package:online_exam/presentation/forget/reset_password.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
-import '../../config/theme/di/di.dart';
 import '../../core/constants.dart';
+import '../../core/di/di.dart';
 import '../../core/reusable_components/custom_button.dart';
 import '../../core/reusable_components/custom_form_field.dart';
 import 'cubit/foget_password_cubit.dart';

@@ -5,9 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/presentation/forget/verification_code.dart';
-
-import '../../config/theme/di/di.dart';
 import '../../core/constants.dart';
+import '../../core/di/di.dart';
 import '../../core/reusable_components/custom_button.dart';
 import '../../core/reusable_components/custom_form_field.dart';
 import 'cubit/foget_password_cubit.dart';

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/core/reusable_components/custom_form_field.dart';
 import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/core/utils/validators.dart';
 import 'package:online_exam/data/models/change_password_input_model.dart';
 
+import '../../../../core/di/di.dart';
 import '../../../../core/reusable_components/custom_circular_indicator.dart';
 import '../../../../core/utils/snackbar_utils.dart';
 import 'cubit/profile_cubit.dart';

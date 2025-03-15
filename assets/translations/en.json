@@ -57,5 +57,21 @@
   "instructions_2":"Time Limit: The time limit for this exam is specified on the exam screen.",
   "instructions_3":"Navigation & Submission: You can move between questions, but once submitted, answers cannot be changed.",
   "instructions_4":"Rules: Do not refresh, close, or switch apps, or you may be disqualified.",
-  "start": "Start"
+  "start": "Start",
+  "examTitle": "Exam",
+  "back": "Back",
+  "submit": "Submit",
+  "next": "Next",
+  "yourScore": "Your Score",
+  "correct": "Correct",
+  "inCorrect": "Incorrect",
+  "showResult": "Show Result",
+  "startAgain": "Start Again",
+  "noQuestion": "No Question",
+  "search": "Search",
+  "browseBySubject": "Browse By Subject",
+  "noSubjectFound": "No Subject Found",
+  "noDataAvailable": "No Data Available",
+  "noExamFound": "No Exam Found"
+
 }

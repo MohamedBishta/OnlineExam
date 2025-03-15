@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/core/reusable_components/custom_button.dart';
+import 'package:online_exam/presentation/home/tabs/explore/exam/exam.dart';
 import '../../../../core/utils/colors_manager.dart';
 import '../../../../core/utils/strings_manager.dart';
 
 class StartExam extends StatelessWidget {
-  const StartExam({super.key, this.subjectName, this.duration, this.questions});
+  const StartExam({super.key, this.subjectName, this.duration, this.questions, this.examId});
   final subjectName;
   final duration;
   final questions;
+  final examId;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,7 @@ class StartExam extends StatelessWidget {
               SizedBox(height: 50.h,),
               CustomButton(title: StringsManager.Start,
                 onPressed: () {
-
+                Navigator.push(context,MaterialPageRoute(builder: (context) => ExamScreen(examId: examId,),));
               },)
 
             ],

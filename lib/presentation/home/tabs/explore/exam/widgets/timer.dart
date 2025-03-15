@@ -6,11 +6,12 @@ class Timer extends StatelessWidget {
   const Timer({
     super.key,
     required ValueNotifier<bool> isLessThan5Minutes,
-    required this.examDuration,
+    required this.examDuration, required this.onTimeEnd,
   }) : _isLessThan5Minutes = isLessThan5Minutes;
 
   final ValueNotifier<bool> _isLessThan5Minutes;
   final int examDuration;
+  final VoidCallback onTimeEnd;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,7 +32,7 @@ class Timer extends StatelessWidget {
               ),
             ),
             onEnd: () {
-              print("Timer finished");
+              onTimeEnd();
             },
             onTick: (duration) {
               // Update the ValueNotifier without calling setState

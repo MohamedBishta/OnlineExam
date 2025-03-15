@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:online_exam/config/theme/di/di.dart';
 import 'package:online_exam/config/theme/my_theme.dart';
 import 'package:online_exam/core/utils/colors_manager.dart';
 import 'package:online_exam/presentation/home/tabs/explore/cubit/get_subjects_cubit.dart';
 import 'package:online_exam/presentation/home/tabs/explore/cubit/get_subjects_state.dart';
 import 'package:online_exam/presentation/home/tabs/explore/start_exam.dart';
 
+import '../../../../core/di/di.dart';
 import '../../../../core/reusable_components/custom_circular_indicator.dart';
 import '../../../../core/utils/strings_manager.dart';
 
@@ -93,7 +93,7 @@ class _SubjectExamState extends State<SubjectExam> {
                           child: state.exams.length == 0
                               ? Center(
                                   child: Text(
-                                    'No Exam found',
+                                    StringsManager.NoExamFound,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall
@@ -114,6 +114,7 @@ class _SubjectExamState extends State<SubjectExam> {
                                                 duration:
                                                     state.exams[index].duration,
                                                 questions: state.exams[index].numberOfQuestions,
+                                                examId:  state.exams[index].sId,
                                               ),
                                             ));
                                       },
@@ -159,7 +160,7 @@ class _SubjectExamState extends State<SubjectExam> {
           } else if (state is GetSubjectsFailure) {
             return Center(child: Text('Error: ${state.error}'));
           } else {
-            return Center(child: Text('No data available.'));
+            return Center(child: Text(StringsManager.NoDataAvailable));
           }
         },
       ),

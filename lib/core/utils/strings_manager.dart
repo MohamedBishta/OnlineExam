@@ -63,5 +63,33 @@ class StringsManager {
   static String get Instructions_3=>'instructions_3'.tr();
   static String get Instructions_4=>'instructions_4'.tr();
   static String get Start=>'start'.tr();
+  static String get ExamTitle=>'examTitle'.tr();
+  static String get Back=>'back'.tr();
+  static String get Submit=>'submit'.tr();
+  static String get Next=>'next'.tr();
+  static String get YourScore=>'yourScore'.tr();
+  static String get Correct=>'correct'.tr();
+  static String get Incorrect=>'inCorrect'.tr();
+  static String get ShowResult=>'showResult'.tr();
+  static String get StartAgain=>'startAgain'.tr();
+  static String get NoQuestion=>'noQuestion'.tr();
+  static String get Search=>'search'.tr();
+  static String get BrowseBySubject=>'browseBySubject'.tr();
+  static String get NoSubjectFound=>'noSubjectFound'.tr();
+  static String get NoDataAvailable=>'noDataAvailable'.tr();
+  static String get NoExamFound=>'noExamFound'.tr();
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

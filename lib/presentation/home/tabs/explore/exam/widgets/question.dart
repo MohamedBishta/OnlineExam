@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam/core/utils/strings_manager.dart';
 import 'package:online_exam/data/models/get_all_question_on_exam_model.dart'
     show Questions;
 
@@ -33,7 +34,7 @@ class _QuestionState extends State<Question> {
               Padding(
                 padding: EdgeInsets.only(bottom: 8.0.h, left: 8.w),
                 child: Text(
-                  widget.question.question ?? 'no question',
+                  widget.question.question ?? StringsManager.NoQuestion,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
