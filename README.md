@@ -94,7 +94,7 @@ We welcome contributions! Feel free to **fork the repo**, create a new branch, a
 ## Developers 👨‍💻
 - **Mahmoud Mohamed Gamal**
 - **Mohamed Sherif**
-- **Muhamad Bishta**
+- **Mohamed Bishta**
 
   
 
